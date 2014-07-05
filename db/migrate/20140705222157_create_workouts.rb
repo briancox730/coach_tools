@@ -3,6 +3,7 @@ class CreateWorkouts < ActiveRecord::Migration
     create_table :workouts do |t|
       t.text :description, null: false
       t.integer :wtype_id, null: false
+      t.timestamps
     end
   end
 end

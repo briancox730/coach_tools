@@ -5,6 +5,7 @@ class CreateStatistics < ActiveRecord::Migration
       t.integer :wod_id, null: false
       t.integer :workout_id, null: false
       t.integer :performance, null: false
+      t.timestamps
     end
   end
 end
