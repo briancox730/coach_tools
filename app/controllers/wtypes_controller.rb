@@ -1,0 +1,3 @@
+class WtypesController < ApplicationController
+
+end
