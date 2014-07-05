@@ -1,5 +1,6 @@
 class Statistic < ActiveRecord::Base
   belongs_to :user
+  belongs_to :workouts
 
   validates_presence_of :user_id
   validates_presence_of :wod_id
