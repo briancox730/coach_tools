@@ -11,10 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140707172803) do
+ActiveRecord::Schema.define(version: 20140707192840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "personal_records", force: true do |t|
+    t.integer "user_id",        null: false
+    t.integer "back_squat"
+    t.integer "front_squat"
+    t.integer "overhead_squat"
+    t.integer "clean"
+    t.integer "snatch"
+    t.integer "power_clean"
+    t.integer "power_snatch"
+    t.integer "hang_clean"
+    t.integer "hang_snatch"
+    t.integer "split_jerk"
+    t.integer "push_jerk"
+    t.integer "push_press"
+    t.integer "press"
+    t.integer "dead_lift"
+  end
+
+  create_table "programs", force: true do |t|
+    t.string "name", null: false
+  end
+
+  add_index "programs", ["name"], name: "index_programs_on_name", unique: true, using: :btree
 
   create_table "statistics", force: true do |t|
     t.integer  "user_id",     null: false
@@ -23,6 +47,7 @@ ActiveRecord::Schema.define(version: 20140707172803) do
     t.integer  "performance", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "comment"
   end
 
   create_table "users", force: true do |t|
@@ -38,6 +63,7 @@ ActiveRecord::Schema.define(version: 20140707172803) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "program_id",                          null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -49,19 +75,20 @@ ActiveRecord::Schema.define(version: 20140707172803) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "program_id",  null: false
   end
 
-  create_table "workouts", force: true do |t|
-    t.text     "description", null: false
-    t.integer  "wtype_id",    null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "wtypes", force: true do |t|
+  create_table "workout_types", force: true do |t|
     t.string "name", null: false
   end
 
-  add_index "wtypes", ["name"], name: "index_wtypes_on_name", unique: true, using: :btree
+  add_index "workout_types", ["name"], name: "index_workout_types_on_name", unique: true, using: :btree
+
+  create_table "workouts", force: true do |t|
+    t.text     "description",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "workout_type_id", null: false
+  end
 
 end

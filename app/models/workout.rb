@@ -1,5 +1,5 @@
 class Workout < ActiveRecord::Base
   has_many :statistics
-  belongs_to :wtype
+  belongs_to :workout_type
 
 end

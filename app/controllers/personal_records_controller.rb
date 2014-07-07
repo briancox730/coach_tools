@@ -1,0 +1,3 @@
+class PersonalRecordsController < ApplicationConroller
+
+end
