@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
 
-  root to: 'pages#index'
+  root 'users#sign_up'
 
   devise_for :users
+
+  resources :users, only: [] do
+    resources :personal_records
+    resources :programs
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
