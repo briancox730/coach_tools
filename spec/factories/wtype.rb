@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :wtype do
-    type "weight"
+    name "weight"
   end
 end
