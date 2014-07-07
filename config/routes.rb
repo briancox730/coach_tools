@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
-  root 'users#sign_up'
+  root 'users#index'
 
   devise_for :users
 
-  resources :users, only: [] do
+  resources :users, only: [:index] do
     resources :personal_records
     resources :programs
   end
