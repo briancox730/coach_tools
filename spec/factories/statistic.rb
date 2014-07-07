@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :statistic do
-    sequence(:email) { |n| "email#{n}@example.com" }
-    password "password123"
+    performance 15
 
-    workout
     user
+    wod
+    workout
   end
 end

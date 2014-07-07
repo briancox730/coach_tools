@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :workout do
-    sequence(:email) { |n| "email#{n}@example.com" }
-    password "password123"
+    description "Every minute, on the minute, for 6 minutes: Full + Quarter Front Squat"
 
     wtype
   end
