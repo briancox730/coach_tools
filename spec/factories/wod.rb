@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :wod do
-    date Time.now
     sequence(:name) { |n| Time.now.strftime("%y%m#{n}")}
     description "A.
                 Every minute, on the minute, for 6 minutes:
@@ -21,5 +20,7 @@ FactoryGirl.define do
                 Five sets of:
                 Row 1500 Meters @ 80% of your 500m pace
                 Rest 4 minutes"
+
+    program
   end
 end
