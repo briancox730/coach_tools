@@ -1,56 +1,79 @@
 <!-- back_squat: nil, front_squat: nil, overhead_squat: nil, clean: nil, snatch: nil, power_clean: nil, power_snatch: nil, hang_clean: nil, hang_snatch: nil, split_jerk: nil, push_jerk: nil, push_press: nil, press: nil, dead_lift: nil -->
-
-<%= simple_form_for(@pr, url: user_personal_record_path(current_user.id, @pr.id), html: {class: 'col-md-8'}) do |f| %>
-  <h2>Edit PRs</h2>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :back_squat,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :front_squat,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :overhead_squat,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :clean,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :snatch,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :power_clean,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :power_snatch,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :hang_clean,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :hang_snatch,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :split_jerk,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :push_jerk,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :push_press,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :press,
-                input_html: { class: 'form-control'} %>
-                <br>
-    <%= f.input :dead_lift,
-                input_html: { class: 'form-control'} %>
-                <br>
+<div class="row">
+  <div class="page-header col-md-12">
+    <h1>Edit Personal Records</h1>
   </div>
+</div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
-  </div>
+<div class="row">
+  <%= simple_form_for(@pr, url: user_personal_record_path(current_user.id, @pr.id)) do |f| %>
+    <%= f.error_notification %>
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-4">
+      <div class="form-inputs">
+        <%= f.input :back_squat,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :front_squat,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :overhead_squat,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :clean,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :snatch,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :power_clean,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :power_snatch,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-inputs">
+        <%= f.input :hang_clean,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :hang_snatch,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :split_jerk,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :push_jerk,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :push_press,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :press,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :dead_lift,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+      </div>
+    </div>
+    <div class="col-sm-2">
+    </div>
   <br>
+
+</div>
+<div class="row">
+  <div class="col-sm-2">
+  </div>
+  <div class="col-sm-8">
+    <div class="form-actions">
+      <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
+    </div>
+  </div>
+  <div class="col-sm-2">
+  </div>
+</div>
 <% end %>
