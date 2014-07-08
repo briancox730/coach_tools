@@ -4,6 +4,8 @@
 # push_press: nil, press: nil, dead_lift: nil
 
 class PersonalRecordsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @pr = PersonalRecord.find(params[:user_id])
   end

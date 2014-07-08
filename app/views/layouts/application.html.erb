@@ -16,15 +16,21 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Coach Tools</a>
+        <% if user_signed_in? %>
+          <%= link_to 'Coach Tools', users_path, class: 'navbar-brand' %>
+        <% else %>
+          <%= link_to 'Coach Tools', new_user_session_path, class: 'navbar-brand' %>
+        <% end %>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
             <li><%= link_to 'PRs', user_personal_records_path(current_user.id) %></li>
+            <li><%= link_to 'PRs', user_personal_records_path(current_user.id) %></li>
             <li><%= link_to 'Your Program', user_program_path(current_user.id, current_user.program_id) %></li>
             <li><%= link_to 'Settings', edit_user_registration_path %></li>
             <li><%= link_to 'Profile', users_path %></li>
+            <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
           <% else %>
             <li><%= link_to 'Sign in', new_user_session_path %></li>
             <li><%= link_to 'Sign up', new_user_registration_path %></li>
@@ -35,11 +41,14 @@
   </div>
 
   <div class="container">
-    <% if user_signed_in? %>
-      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+    <% if flash.any? %>
+      <div class="alert alert-warning" role="alert">
+        <strong>
+          <%= flash[:notice] %>
+          <%= flash[:alert] %>
+        </strong>
+      </div>
     <% end %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
 
     <%= yield %>
 
