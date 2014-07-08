@@ -1,6 +1,6 @@
 <!-- back_squat: nil, front_squat: nil, overhead_squat: nil, clean: nil, snatch: nil, power_clean: nil, power_snatch: nil, hang_clean: nil, hang_snatch: nil, split_jerk: nil, push_jerk: nil, push_press: nil, press: nil, dead_lift: nil -->
 
-<%= simple_form_for(@pr, url: user_personal_record_path(current_user.id, @pr.id), html: {class: 'form-signin'}) do |f| %>
+<%= simple_form_for(@pr, url: user_personal_record_path(current_user.id, @pr.id), html: {class: 'col-md-8'}) do |f| %>
   <h2>Edit PRs</h2>
   <%= f.error_notification %>
 
