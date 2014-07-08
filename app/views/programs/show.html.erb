@@ -1,3 +1,9 @@
 programs show.html.erb
 
 <h1>Program: <%= @program.name %></h1>
+
+<ul class="list-group col-md-8">
+  <% @users.each do |u| %>
+    <li class="list-group-item"><%= u.first_name + " " + u.last_name %></li>
+  <% end %>
+</ul>

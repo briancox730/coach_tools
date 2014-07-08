@@ -4,10 +4,11 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  resources :wods
+
   resources :users, only: [:index] do
     resources :personal_records
     resources :programs
-    resources :wods
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
