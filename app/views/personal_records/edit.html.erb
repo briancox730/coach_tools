@@ -1,1 +1,56 @@
-edit.html.erb
+<!-- back_squat: nil, front_squat: nil, overhead_squat: nil, clean: nil, snatch: nil, power_clean: nil, power_snatch: nil, hang_clean: nil, hang_snatch: nil, split_jerk: nil, push_jerk: nil, push_press: nil, press: nil, dead_lift: nil -->
+
+<%= simple_form_for(@pr, url: user_personal_record_path(current_user.id, @pr.id), html: {class: 'form-signin'}) do |f| %>
+  <h2>Edit PRs</h2>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :back_squat,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :front_squat,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :overhead_squat,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :clean,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :snatch,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :power_clean,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :power_snatch,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :hang_clean,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :hang_snatch,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :split_jerk,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :push_jerk,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :push_press,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :press,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :dead_lift,
+                input_html: { class: 'form-control'} %>
+                <br>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
+  </div>
+  <br>
+<% end %>
