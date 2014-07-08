@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index] do
     resources :personal_records
     resources :programs
+    resources :wods
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

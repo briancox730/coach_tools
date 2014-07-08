@@ -7,7 +7,7 @@ class PersonalRecordsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @pr = PersonalRecord.find(params[:user_id])
+    @pr = PersonalRecord.find_by(user_id: params[:user_id])
   end
 
   def edit
