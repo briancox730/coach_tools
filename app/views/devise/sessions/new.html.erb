@@ -1,7 +1,7 @@
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-sm-4">
   </div>
-  <div class="col-md-4">
+  <div class="col-sm-4">
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <h2>Sign in</h2>
       <%= f.error_notification %>
@@ -34,6 +34,6 @@
       <%= render "devise/shared/links" %>
     <% end %>
   </div>
-  <div class="col-md-4">
+  <div class="col-sm-4">
   </div>
 </div>
