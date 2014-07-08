@@ -22,7 +22,7 @@
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
             <li><%= link_to 'PRs', user_personal_records_path(current_user.id) %></li>
-            <li><%= link_to 'Dashboard', user_program_path(current_user.id, current_user.id) %></li>
+            <li><%= link_to 'Your Program', user_program_path(current_user.id, current_user.program_id) %></li>
             <li><%= link_to 'Settings', edit_user_registration_path %></li>
             <li><%= link_to 'Profile', users_path %></li>
           <% else %>
