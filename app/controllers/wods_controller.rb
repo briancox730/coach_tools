@@ -3,6 +3,7 @@ require 'open-uri'
 class WodsController < ApplicationController
   def show
     @wod = Wod.find(params[:id])
+    @piece = @wod.description.split(/[A-Z]\./)[1..-1]
   end
 
   def new
