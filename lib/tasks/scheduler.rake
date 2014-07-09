@@ -5,5 +5,7 @@ task get_last_wod: :environment do
   wod = Nokogiri::HTML(open("http://www.crossfitinvictus.com/wod/#{Time.now.strftime("%B-%-d-%Y").downcase}-competition/"))
   new_wod = wod.css('.entry')[0].text.to_s
   program = Program.find_by(name: "Invictus Competition")
-  Wod.create(name: name, description: new_wod, program_id: program.id)
+  if Wod.find_by(name: name).nil?
+    Wod.create(name: name, description: new_wod, program_id: program.id)
+  end
 end
