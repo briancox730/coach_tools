@@ -5,9 +5,11 @@
 </div>
 <div class="row">
   <div class="col-md-8">
-    <p><%= @wod.description %></p>
+    <% @wod.description.split("\n").each do |l| %>
+      <%= l %><br>
+    <% end %>
   </div>
   <div class="col-md-4">
-    <p><%= @wod.description %></p>
+    <p>SIDEBAR</p>
   </div>
 </div>

@@ -7,11 +7,6 @@ class WodsController < ApplicationController
 
   def new
     @wod = Wod.new
-    entry = Nokogiri::HTML(open("http://www.crossfitinvictus.com/wod/july-9-2014-competition/"))
-    @today = entry.css('.entry')
-    # .each do |p|
-    #   @today += p
-    # end
   end
 
   def create
