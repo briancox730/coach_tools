@@ -191,6 +191,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   launchy
+  nokogiri
   pg
   pry-rails
   quiet_assets
