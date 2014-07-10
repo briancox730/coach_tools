@@ -10,70 +10,62 @@
     <%= f.error_notification %>
     <div class="col-sm-2">
     </div>
-    <div class="col-sm-4">
-      <div class="form-inputs">
-        <%= f.input :back_squat,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :front_squat,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :overhead_squat,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :clean,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :snatch,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :power_clean,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :power_snatch,
-                    input_html: { class: 'form-control'} %>
-                    <br>
+    <div class="col-sm-8">
+      <div class="col-sm-6">
+        <div class="form-inputs">
+          <%= f.input :back_squat,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :front_squat,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :overhead_squat,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :clean,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :snatch,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :power_clean,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :power_snatch,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-inputs">
+          <%= f.input :hang_clean,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :hang_snatch,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :split_jerk,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :push_jerk,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :push_press,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :press,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :dead_lift,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+        </div>
+      </div>
+      <div class="form-actions">
+        <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
+      </div>
+      </div>
+      <div class="col-sm-2">
       </div>
     </div>
-    <div class="col-sm-4">
-      <div class="form-inputs">
-        <%= f.input :hang_clean,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :hang_snatch,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :split_jerk,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :push_jerk,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :push_press,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :press,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :dead_lift,
-                    input_html: { class: 'form-control'} %>
-                    <br>
-      </div>
-    </div>
-    <div class="col-sm-2">
-    </div>
-  <br>
-
-</div>
-<div class="row">
-  <div class="col-sm-2">
-  </div>
-  <div class="col-sm-8">
-    <div class="form-actions">
-      <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
-    </div>
-  </div>
-  <div class="col-sm-2">
-  </div>
-</div>
-<% end %>
+  <% end %>

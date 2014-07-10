@@ -4,6 +4,8 @@ class WodsController < ApplicationController
   def show
     @wod = Wod.find(params[:id])
     @piece = @wod.description.split(/[A-Z]\./)[1..-1]
+    @workouts = Workout.where(wod_id: @wod.id)
+    @workout = Workout.new
   end
 
   def new

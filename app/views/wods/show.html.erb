@@ -8,9 +8,42 @@
     <% @wod.description.split("\n").each do |l| %>
       <%= l %><br>
     <% end %>
+
+    <%= simple_form_for([@wod, @workout], url: wod_workouts_path(@wod)) do |f| %>
+      <h2>Enter new workout for <%= @wod.name %></h2>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :name,
+                    label: 'Part Name (a, b, c)',
+                    placeholder: 'a',
+                    input_html: { value: 'a', class: 'form-control'} %>
+                    <br>
+        <%= f.input :description,
+                    input_html: { class: 'form-control'} %>
+                    <br>
+        <%= f.input :workout_type_id,
+                    required: true,
+                    collection: WorkoutType.all,
+                    prompt: "Workout Type",
+                    input_html: { class: 'form-control'}  %>
+                    <br>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
+      </div>
+      <br>
+    <% end %>
   </div>
   <div class="col-md-4">
-    <p>SIDEBAR</p>
+    <% @wod.workouts.each do |workout| %>
+      <div>
+        <%= workout.name %>. <%= workout.description %><br>
+        <%= workout.workout_type.name %><br>
+      </div>
+      <br>
+    <% end %>
   </div>
 </div>
 
