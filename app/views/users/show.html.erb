@@ -1,0 +1,15 @@
+show.html.erb
+
+<div class="row">
+  <div class="col-md-7">
+    <%= @complete %>
+  </div>
+  <div class="col-md-5">
+    <% @to_complete.each do |w| %>
+      <div>
+        <%= w.wod.name %><%= w.name.downcase %><br>
+        <%= w.description %>
+      </div><br>
+    <% end %>
+  </div>
+</div>

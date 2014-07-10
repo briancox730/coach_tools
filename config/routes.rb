@@ -8,9 +8,10 @@ Rails.application.routes.draw do
     resources :workouts
   end
 
-  resources :users, only: [:index] do
+  resources :users, only: [:index, :show] do
     resources :personal_records
     resources :programs
+    resources :statistics
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
