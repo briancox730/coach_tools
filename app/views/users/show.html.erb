@@ -1,15 +1,61 @@
-show.html.erb
-
 <div class="row">
   <div class="col-md-7">
-    <%= @complete %>
-  </div>
-  <div class="col-md-5">
-    <% @to_complete.each do |w| %>
+    <% @complete.each do |w| %>
       <div>
-        <%= w.wod.name %><%= w.name.downcase %><br>
-        <%= w.description %>
+        Workout: <%= w.workout.description %><br>
+        Performance: <%= w.performance %>
       </div><br>
     <% end %>
+  </div>
+  <div class="col-md-5">
+    <% if @to_complete.size != 0 %>
+      <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: @to_complete.first)) do |f| %>
+      <h2>Add performance</h2>
+      <%= f.error_notification %>
+
+      <p><%= @to_complete.first.description %></p>
+      <p>Type: <%= @to_complete.first.workout_type.name %>
+
+      <div class="form-inputs">
+        <% if @to_complete.first.workout_type.name == "complete" %>
+          <%= f.input :performance,
+                      label: 'Complete?',
+                      as: :boolean,
+                      checked_value: true,
+                      unchecked_value: false,
+                      input_html: { class: 'form-control'} %>
+                      <br>
+        <% elsif @to_complete.first.workout_type.name == "weight" %>
+          <%= f.input :performance,
+                      label: false,
+                      placeholder: 'Best Weight',
+                      input_html: { class: 'form-control'} %>
+                      <br>
+        <% elsif @to_complete.first.workout_type.name == "time" %>
+          <%= f.input :performance,
+                      label: false,
+                      as: :string,
+                      placeholder: 'Time in minutes and seconds',
+                      input_html: { class: 'form-control'} %>
+                      <br>
+        <% else %>
+          <%= f.input :performance,
+                      label: 'Reps',
+                      input_html: { class: 'form-control'} %>
+                      <br>
+        <% end %>
+        <%= f.input :comment,
+                    label: false,
+                    placeholder: 'Comments',
+                    input_html: { class: 'form-control'} %>
+                    <br>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
+      </div>
+      <br>
+    <% end %>
+  <% end %>
   </div>
 </div>
