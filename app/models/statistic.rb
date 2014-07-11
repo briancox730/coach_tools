@@ -13,7 +13,7 @@ class Statistic < ActiveRecord::Base
       seconds = time_array[1].to_i
       seconds += time_array[0].to_i * 60
     else
-      seconds += performance.to_i * 60
+      seconds = performance
     end
     seconds
   end
