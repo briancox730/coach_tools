@@ -8,40 +8,58 @@
     <% @wod.description.split("\n").each do |l| %>
       <%= l %><br>
     <% end %>
+
+    <% @statistics.each do |statistic| %>
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><%= statistic[1][0].user.first_name %></div>
+
+        <!-- List group -->
+        <ul class="list-group">
+          <% statistic[1].each do |performance| %>
+            <% if performance.workout.workout_type.name == "weight" %>
+              <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;<%= performance.performance %>lbs</li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
   <div class="col-md-4">
-    <div class="well">
-      <%= simple_form_for([@wod, @workout], url: wod_workouts_path(@wod)) do |f| %>
-        <h4>Enter new workout for <%= @wod.name %></h4>
-        <%= f.error_notification %>
+    <% if @piece.size != @workouts.size %>
+      <div class="well">
+        <%= simple_form_for([@wod, @workout], url: wod_workouts_path(@wod)) do |f| %>
+          <h4>Enter new workout for <%= @wod.name %></h4>
+          <%= f.error_notification %>
 
-        <div class="form-inputs">
-          <%= f.input :name,
-                      label: 'Part Name (a, b, c)',
-                      default: 'a',
-                      collection: %w{ a b c d e },
-                      input_html: { value: 'a', class: 'form-control'} %>
-                      <br>
-          <%= f.input :description,
-                      collection: @piece,
-                      prompt: "Choose part",
-                      input_html: { class: 'form-control'} %>
-                      <br>
-          <%= f.input :workout_type_id,
-                      required: true,
-                      collection: WorkoutType.all,
-                      prompt: "Workout Type",
-                      input_html: { class: 'form-control'}  %>
-                      <br>
-        </div>
+          <div class="form-inputs">
+            <%= f.input :name,
+                        label: 'Part Name (a, b, c)',
+                        default: 'a',
+                        collection: %w{ a b c d e },
+                        input_html: { value: 'a', class: 'form-control'} %>
+                        <br>
+            <%= f.input :description,
+                        collection: @piece,
+                        prompt: "Choose part",
+                        input_html: { class: 'form-control'} %>
+                        <br>
+            <%= f.input :workout_type_id,
+                        required: true,
+                        collection: WorkoutType.all,
+                        prompt: "Workout Type",
+                        input_html: { class: 'form-control'}  %>
+                        <br>
+          </div>
 
-        <div class="form-actions">
-          <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
-        </div>
-        <br>
-      <% end %>
+          <div class="form-actions">
+            <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
+          </div>
+          <br>
+        <% end %>
+      </div>
+    <% end %>
 
-    </div>
     <% @wod.workouts.each do |workout| %>
       <div>
         <%= workout.name %>. <%= workout.description %><br>

@@ -6,6 +6,7 @@ class WodsController < ApplicationController
     @piece = @wod.description.split(/[A-Z]\./)[1..-1]
     @workouts = Workout.where(wod_id: @wod.id)
     @workout = Workout.new
+    @statistics = @wod.statistics.group_by(&:user_id)
   end
 
   def new
