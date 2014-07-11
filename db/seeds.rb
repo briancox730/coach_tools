@@ -26,7 +26,7 @@ programs.each do |program|
   Program.create(program)
 end
 
-for i in 0..35
+for i in 0..50
   date = Time.now - (i * 86400)
   name = date.strftime("%y%m%d")
   url = date.strftime("%B-%-d-%Y").downcase
