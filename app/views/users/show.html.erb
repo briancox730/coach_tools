@@ -1,11 +1,11 @@
 <div class="row">
-  <div class="page-header col-md-12">
+  <div class="page-header col-sm-12">
     <h1><%= @user.first_name + " " + @user.last_name %></h1>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-7">
+  <div class="col-sm-7">
     <% @complete.each do |w| %>
       <div>
         Workout: <%= w.workout.description %><br>
@@ -13,7 +13,7 @@
       </div><br>
     <% end %>
   </div>
-  <div class="col-md-5">
+  <div class="col-sm-5">
     <% if @to_complete.size != 0 && current_user.id == @user.id %>
       <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: @to_complete.first)) do |f| %>
       <h2>Add performance</h2>
