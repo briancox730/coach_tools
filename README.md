@@ -4,6 +4,7 @@
 Task List:
 
 - [x] Authentication with Devise
+  - [ ] Admin name spacing
 - [x] Page Scraping with Nokogiri
 - [x] Workout recognition and building
   - [ ] Build workout to workout relationships
@@ -16,6 +17,7 @@ Task List:
 - [ ] Automatically classify workouts
 - [ ] Build Workout and Athlete statistics and displays
   - [ ] Athlete show page
+  - [ ] D3 Star plot
   - [ ] Program show stats
   - [ ] Workout show page
 - [ ] Buid movement relation hierarchy
