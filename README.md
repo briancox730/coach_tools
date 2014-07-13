@@ -3,10 +3,13 @@
 
 Task List:
 
-- [x] Authentication with Devise
+- [ ] Authentication with Devise
   - [ ] Admin name spacing
+  - [x] User login
 - [x] Page Scraping with Nokogiri
-- [x] Workout recognition and building
+- [ ] Workout recognition and building
+  - [x] Scrapes workout page
+  - [x] Spits it down in to "workouts"
   - [ ] Build workout to workout relationships
   - [ ] Movement relationship and loading on workouts
 - [x] Initial database schema

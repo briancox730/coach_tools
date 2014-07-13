@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140710001726) do
+ActiveRecord::Schema.define(version: 20140713201911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "movements", force: true do |t|
+    t.string "name", null: false
+  end
+
+  add_index "movements", ["name"], name: "index_movements_on_name", unique: true, using: :btree
 
   create_table "personal_records", force: true do |t|
     t.integer "user_id",        null: false
@@ -91,6 +97,8 @@ ActiveRecord::Schema.define(version: 20140710001726) do
     t.integer  "workout_type_id", null: false
     t.integer  "wod_id",          null: false
     t.string   "name",            null: false
+    t.integer  "movement"
+    t.integer  "workout_id"
   end
 
 end
