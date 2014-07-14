@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Work</title>
+  <title>Athletes Tools - <%= if user_signed_in? then current_user.first_name + " " + current_user.last_name end %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -17,9 +18,9 @@
           <span class="icon-bar"></span>
         </button>
         <% if user_signed_in? %>
-          <%= link_to 'Coach Tools', users_path, class: 'navbar-brand' %>
+          <%= link_to 'Athletes Tools', users_path, class: 'navbar-brand' %>
         <% else %>
-          <%= link_to 'Coach Tools', new_user_session_path, class: 'navbar-brand' %>
+          <%= link_to 'Athletes Tools', new_user_session_path, class: 'navbar-brand' %>
         <% end %>
       </div>
       <div class="collapse navbar-collapse">
