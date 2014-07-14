@@ -40,10 +40,11 @@
           <% if w.workout_type.name == "complete" %>
             <%= f.input :performance,
                         label: 'Complete?',
+                        wrapper_html: { class: 'checkbox' },
+                        input_html: { type: 'checkbox', class: 'form-control' } ,
                         as: :boolean,
                         checked_value: true,
-                        unchecked_value: false,
-                        input_html: { class: 'form-control'} %>
+                        unchecked_value: false %>
                         <br>
           <% elsif w.workout_type.name == "weight" %>
             <%= f.input :performance,

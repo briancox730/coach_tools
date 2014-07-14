@@ -8,8 +8,8 @@ class StatisticsController < ApplicationController
       flash[:notice] = "Your performance was succesfully submitted."
       redirect_to user_path(current_user)
     else
-      flash.now[:notice] = "Your performance was not succesfully submitted."
-      redirect_to users_path
+      flash[:notice] = "Your performance was not succesfully submitted."
+      redirect_to user_path(current_user)
     end
   end
 
