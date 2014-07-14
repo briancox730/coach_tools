@@ -5,27 +5,6 @@
 </div>
 <div class="row">
   <div class="col-md-8">
-    <% @wod.description.split("\n").each do |l| %>
-      <%= l %><br>
-    <% end %>
-
-    <% @statistics.each do |statistic| %>
-      <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading"><%= statistic[1][0].user.first_name %></div>
-
-        <!-- List group -->
-        <ul class="list-group">
-          <% statistic[1].each do |performance| %>
-            <% if performance.workout.workout_type.name == "weight" %>
-              <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;<%= performance.performance %>lbs</li>
-            <% end %>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  </div>
-  <div class="col-md-4">
     <% if @piece.size != @workouts.size %>
       <div class="well">
         <%= simple_form_for([@wod, @workout], url: wod_workouts_path(@wod)) do |f| %>
@@ -71,7 +50,27 @@
         <% end %>
       </div>
     <% end %>
+    <% @wod.description.split("\n").each do |l| %>
+      <%= l %><br>
+    <% end %>
 
+    <% @statistics.each do |statistic| %>
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><%= statistic[1][0].user.first_name %></div>
+
+        <!-- List group -->
+        <ul class="list-group">
+          <% statistic[1].each do |performance| %>
+            <% if performance.workout.workout_type.name == "weight" %>
+              <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;<%= performance.performance %>lbs</li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-4">
     <% @wod.workouts.each do |workout| %>
       <div>
         <%= workout.name %>. <%= workout.description %><br>

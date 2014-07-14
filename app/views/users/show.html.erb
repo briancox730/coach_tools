@@ -5,7 +5,7 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-7">
+  <div class="hidden-xs col-sm-7">
     <% @complete.each do |w| %>
       <div>
         Workout: <%= w.workout.description %><br>
@@ -13,7 +13,7 @@
       </div><br>
     <% end %>
   </div>
-  <div class="col-sm-5">
+  <div class="col-xs-12 col-sm-5">
     <% if @to_complete.size != 0 && current_user.id == @user.id %>
       <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: @to_complete.first)) do |f| %>
       <h2>Add performance</h2>
