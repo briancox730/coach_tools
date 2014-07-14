@@ -11,9 +11,14 @@ class Wod < ActiveRecord::Base
     results = []
 
     wod.program.workouts.each do |w|
-      results << [ w.wod.name.to_s + w.name.to_s, w.id ]
+      name = w.wod.name.to_s + w.name.to_s
+
+      if !w.movement.nil?
+        name += " " + w.movement.name
+      end
+      results << [ name, w.id ]
     end
-    binding.pry
+
     results
   end
 end
