@@ -15,53 +15,67 @@
   </div>
   <div class="col-xs-12 col-sm-5">
     <% if @to_complete.size != 0 && current_user.id == @user.id %>
-      <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: @to_complete.first)) do |f| %>
-      <h2><%= @to_complete.first.wod.name + @to_complete.first.name %></h2>
-      <%= f.error_notification %>
-
-      <p><%= @to_complete.first.description %></p>
-      <p>Type: <%= @to_complete.first.workout_type.name %></p>
-      <p>Last Related Performance: <%= Statistic.find_by(workout_id: @to_complete.first.workout_id, user_id: current_user.id).performance %></p>
-
-      <div class="form-inputs">
-        <% if @to_complete.first.workout_type.name == "complete" %>
-          <%= f.input :performance,
-                      label: 'Complete?',
-                      as: :boolean,
-                      checked_value: true,
-                      unchecked_value: false,
-                      input_html: { class: 'form-control'} %>
-                      <br>
-        <% elsif @to_complete.first.workout_type.name == "weight" %>
-          <%= f.input :performance,
-                      label: false,
-                      placeholder: 'Best Weight',
-                      input_html: { class: 'form-control'} %>
-                      <br>
-        <% elsif @to_complete.first.workout_type.name == "time" %>
-          <%= f.input :performance,
-                      label: false,
-                      as: :string,
-                      placeholder: 'Time in minutes and seconds',
-                      input_html: { class: 'form-control'} %>
-                      <br>
-        <% else %>
-          <%= f.input :performance,
-                      label: 'Reps',
-                      input_html: { class: 'form-control'} %>
-                      <br>
+      <% @to_complete.each do |w| %>
+        <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: w)) do |f| %>
+        <h2><%= w.wod.name + w.name %></h2>
+        <%= f.error_notification %>
+        <p><%= w.description %></p>
+        <p>Last Related Performance: <%= if !Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).nil? then Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).performance end%></p>
+        <% if !w.movement.nil? %>
+          <button class="btn btn-warning display-movement-percentage">Show <%= w.movement.name %> Percentages</button>
+          <br><br>
+          <table class="table table-hover pr-table pr-table-hidden">
+            <thead>
+              <tr>
+                <th><%= w.movement.name %> Percentages</th>
+                <th class="pr"><%= @user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] %></th>
+              </tr>
+            </thead>
+            <tbody class="tbody">
+            </tbody>
+          </table>
         <% end %>
-        <%= f.input :comment,
-                    label: false,
-                    placeholder: 'Comments',
-                    input_html: { class: 'form-control'} %>
-                    <br>
-      </div>
 
-      <div class="form-actions">
-        <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
-      </div>
-      <br>
+        <div class="form-inputs">
+          <% if w.workout_type.name == "complete" %>
+            <%= f.input :performance,
+                        label: 'Complete?',
+                        as: :boolean,
+                        checked_value: true,
+                        unchecked_value: false,
+                        input_html: { class: 'form-control'} %>
+                        <br>
+          <% elsif w.workout_type.name == "weight" %>
+            <%= f.input :performance,
+                        label: false,
+                        placeholder: 'Best Weight',
+                        input_html: { class: 'form-control'} %>
+                        <br>
+          <% elsif w.workout_type.name == "time" %>
+            <%= f.input :performance,
+                        label: false,
+                        as: :string,
+                        placeholder: 'Time in minutes and seconds',
+                        input_html: { class: 'form-control'} %>
+                        <br>
+          <% else %>
+            <%= f.input :performance,
+                        label: 'Reps',
+                        input_html: { class: 'form-control'} %>
+                        <br>
+          <% end %>
+          <%= f.input :comment,
+                      label: false,
+                      placeholder: 'Comments',
+                      input_html: { class: 'form-control'} %>
+                      <br>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
+        </div>
+        <br>
+      <% end %>
     <% end %>
   <% end %>
   <table class="table table-striped">

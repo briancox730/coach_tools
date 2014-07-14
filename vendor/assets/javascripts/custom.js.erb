@@ -10,4 +10,15 @@ $(document).ready(function() {
         (value * values[i]).toFixed(2)+'</strong></td></tr>')
     };
   });
+
+  $('.display-movement-percentage').on('click', function(e) {
+    e.preventDefault();
+    $(this).nextAll('.pr-table').toggleClass('pr-table-hidden');
+    var pr = $(this).nextAll('.pr-table').find('.pr').html();
+    var values = [100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50];
+    for (i=0; i<values.length; i++) {
+      $(this).nextAll('.pr-table').find('.tbody').append('<tr><td>'+
+        values[i] + '</td><td>'+ ((values[i] /100) * pr).toFixed(2) + '</td></tr>')
+    };
+  });
 });

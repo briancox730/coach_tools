@@ -9,3 +9,7 @@ body {
 .left {
   float: left;
 }
+
+.pr-table-hidden {
+  display: none;
+}

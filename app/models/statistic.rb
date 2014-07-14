@@ -31,6 +31,6 @@ class Statistic < ActiveRecord::Base
         to_complete << w
       end
     end
-    to_complete
+    to_complete.sort_by(&:created_at).reverse
   end
 end
