@@ -1,16 +1,16 @@
 <!-- back_squat: nil, front_squat: nil, overhead_squat: nil, clean: nil, snatch: nil, power_clean: nil, power_snatch: nil, hang_clean: nil, hang_snatch: nil, split_jerk: nil, push_jerk: nil, push_press: nil, press: nil, dead_lift: nil -->
 <div class="row">
   <div class="page-header col-sm-12">
-    <h1>Edit Personal Records</h1>
+    <h1>Edit PRs</h1>
   </div>
 </div>
 
 <div class="row">
   <%= simple_form_for(@pr, url: user_personal_record_path(current_user.id, @pr.id)) do |f| %>
     <%= f.error_notification %>
-    <div class="col-sm-2">
+    <div class="col-xs-0 col-sm-2">
     </div>
-    <div class="col-sm-8">
+    <div class="col-xs-12 col-sm-8">
       <div class="col-sm-6">
         <div class="form-inputs">
           <%= f.input :back_squat,
@@ -65,7 +65,7 @@
         <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
       </div>
       </div>
-      <div class="col-sm-2">
+      <div class="col-xs-0 col-sm-2">
       </div>
     </div>
   <% end %>
