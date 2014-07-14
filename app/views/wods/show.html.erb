@@ -39,6 +39,18 @@
                         collection: %w{ a b c d e },
                         input_html: { value: 'a', class: 'form-control'} %>
                         <br>
+            <%= f.input :movement_id,
+                        label: 'Select Associated Movement',
+                        collection: @movements,
+                        prompt: "Movements...",
+                        input_html: { class: 'form-control'}  %>
+                        <br>
+            <%= f.input :workout_id,
+                        label: 'Select Associated Workout',
+                        collection: @previous_workouts,
+                        prompt: "Workouts...",
+                        input_html: { class: 'form-control'}  %>
+                        <br>
             <%= f.input :description,
                         collection: @piece,
                         prompt: "Choose part",

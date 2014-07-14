@@ -1,0 +1,3 @@
+class MovementsController < ApplicationController
+
+end
