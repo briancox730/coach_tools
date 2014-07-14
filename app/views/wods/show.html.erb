@@ -22,13 +22,13 @@
                         label: 'Select Associated Movement',
                         collection: @movements,
                         prompt: "Movements...",
-                        input_html: { class: 'form-control'}  %>
+                        input_html: { class: 'form-control'} %>
                         <br>
             <%= f.input :workout_id,
                         label: 'Select Associated Workout',
-                        collection: @previous_workouts,
                         prompt: "Workouts...",
-                        input_html: { class: 'form-control'}  %>
+                        collection: @previous_workouts,
+                        input_html: { class: 'form-control'} %>
                         <br>
             <%= f.input :description,
                         collection: @piece,
@@ -39,7 +39,7 @@
                         required: true,
                         collection: WorkoutType.all,
                         prompt: "Workout Type",
-                        input_html: { class: 'form-control'}  %>
+                        input_html: { class: 'form-control'} %>
                         <br>
           </div>
 

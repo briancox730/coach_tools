@@ -9,7 +9,7 @@ class WodsController < ApplicationController
     @statistics = @wod.statistics.group_by(&:user_id)
     @program = Wod.find(params[:id]).program
     @movements = Movement.all
-    @previous_workouts = @program.workouts
+    @previous_workouts = Wod.associated_workouts(@wod)
   end
 
   def new
