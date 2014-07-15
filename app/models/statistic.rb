@@ -31,7 +31,7 @@ class Statistic < ActiveRecord::Base
           #     data: [28, 48, 40]
           # }
           ]}
-    available_stats = Statistic.where(user_id: user.id)
+    available_stats = Statistic.where(user_id: user)
     available_stats.each do |s|
       data[:labels] << s.workout.wod.name
       data[:datasets][0][:data] << s.performance
