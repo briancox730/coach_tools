@@ -13,3 +13,8 @@ body {
 .pr-table-hidden {
   display: none;
 }
+
+canvas {
+  padding: 0 35px 0 0;
+}
+

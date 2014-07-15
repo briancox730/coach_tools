@@ -1,4 +1,11 @@
 <div class="row">
+  <div class="hidden-xs col-sm-12">
+    <div class="page-header">
+      <h1><%= @user.first_name + " " + @user.last_name %></h1>
+    </div>
+  </div>
+</div>
+<div class="row">
   <div class="col-xs-12 col-sm-4">
     <% if @to_complete.size != 0 && current_user.id == @user.id %>
       <% @to_complete.each do |w| %>
@@ -29,9 +36,7 @@
                         wrapper_html: { class: 'checkbox' },
                         input_html: { type: 'checkbox' } ,
                         inline_label: 'Complete?',
-                        as: :boolean,
-                        checked_value: true,
-                        unchecked_value: false %>
+                        as: :boolean %>
                         <br>
           <% elsif w.workout_type.name == "weight" %>
             <%= f.input :performance,
@@ -85,11 +90,8 @@
       </tbody>
     </table>
   </div>
-  <div class="hidden-xs col-sm-8">
-    <div class="page-header">
-      <h1><%= @user.first_name + " " + @user.last_name %></h1>
-    </div>
-    <canvas id="myChart" width="600" height="400"></canvas>
+  <div class="hidden-xs col-sm-8 well">
+    <!-- <canvas id="myChart"></canvas> -->
     <% @complete.each do |w| %>
       <div>
         Workout: <%= w.workout.description %><br>
@@ -100,6 +102,7 @@
 </div>
 <script type='text/javascript'>
   $(function(){
+    Chart.defaults.global.responsive = true;
     var data = $.parseJSON('<%=  @front_squat_data.to_json.html_safe %>');
     buildFSChart(data);
   });

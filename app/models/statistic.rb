@@ -1,40 +1,3 @@
-# var data = {
-#     labels: ["January", "February", "March", "April", "May", "June", "July"],
-#     datasets: [
-#         {
-#             label: "My First dataset",
-#             fillColor: "rgba(220,220,220,0.2)",
-#             strokeColor: "rgba(220,220,220,1)",
-#             pointColor: "rgba(220,220,220,1)",
-#             pointStrokeColor: "#fff",
-#             pointHighlightFill: "#fff",
-#             pointHighlightStroke: "rgba(220,220,220,1)",
-#             data: [65, 59, 80, 81, 56, 55, 40]
-#         },
-#         {
-#             label: "My Second dataset",
-#             fillColor: "rgba(151,187,205,0.2)",
-#             strokeColor: "rgba(151,187,205,1)",
-#             pointColor: "rgba(151,187,205,1)",
-#             pointStrokeColor: "#fff",
-#             pointHighlightFill: "#fff",
-#             pointHighlightStroke: "rgba(151,187,205,1)",
-#             data: [28, 48, 40, 19, 86, 27, 90]
-#         }
-#     ]
-# };
-
-# all_entries = Statistic.where(user_id: user.id)
-#     data = {}
-#     labels = []
-#     data = []
-#     all_entries.each do |e|
-
-#     end
-
-#     data[:labels] = labels
-#     data[:datasets] = datasets
-
 class Statistic < ActiveRecord::Base
   belongs_to :user
   belongs_to :workout
@@ -45,28 +8,35 @@ class Statistic < ActiveRecord::Base
 
   def self.get_fs_chart(user)
     data = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: [],
       datasets: [
           {
               label: "My First dataset",
-              fillColor: "rgba(220,220,220,0.2)",
-              strokeColor: "rgba(220,220,220,1)",
-              pointColor: "rgba(220,220,220,1)",
+              fillColor: "rgba(0,255,0,0.2)",
+              strokeColor: "rgba(0,255,0,1)",
+              pointColor: "rgba(144,238,144,1)",
               pointStrokeColor: "#fff",
               pointHighlightFill: "#fff",
               pointHighlightStroke: "rgba(220,220,220,1)",
-              data: [65, 59, 80, 81, 56, 55, 40]
+              data: []
           },
-          {
-              label: "My Second dataset",
-              fillColor: "rgba(151,187,205,0.2)",
-              strokeColor: "rgba(151,187,205,1)",
-              pointColor: "rgba(151,187,205,1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(151,187,205,1)",
-              data: [28, 48, 40, 19, 86, 27, 90]
-          }]}
+          # {
+          #     label: "My Second dataset",
+          #     fillColor: "rgba(0,255,255,0.2)",
+          #     strokeColor: "rgba(0,255,255,1)",
+          #     pointColor: "rgba(32,178,170,1)",
+          #     pointStrokeColor: "#fff",
+          #     pointHighlightFill: "#fff",
+          #     pointHighlightStroke: "rgba(151,187,205,1)",
+          #     data: [28, 48, 40]
+          # }
+          ]}
+    available_stats = Statistic.where(user_id: user.id)
+    available_stats.each do |s|
+      data[:labels] << s.workout.wod.name
+      data[:datasets][0][:data] << s.performance
+    end
+    data
   end
 
   def self.performance_converter(performance)
