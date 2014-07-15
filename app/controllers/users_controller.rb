@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @complete = Statistic.where(user_id: params[:id])
+    @complete = Statistic.where(user_id: params[:id]).order(created_at: :desc)
     @user = User.find(params[:id])
     if current_user.id = @user.id
       @available_workouts = Program.find(current_user.program_id).workouts
