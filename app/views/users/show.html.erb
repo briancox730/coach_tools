@@ -31,9 +31,10 @@
         <div class="form-inputs">
           <% if w.workout_type.name == "complete" %>
             <%= f.input :performance,
-                        label: 'Complete?',
+                        label: false,
                         wrapper_html: { class: 'checkbox' },
-                        input_html: { type: 'checkbox', class: 'form-control' } ,
+                        input_html: { type: 'checkbox' } ,
+                        inline_label: 'Complete?',
                         as: :boolean,
                         checked_value: true,
                         unchecked_value: false %>

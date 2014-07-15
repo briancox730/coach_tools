@@ -5,7 +5,7 @@
 </div>
 <div class="row">
   <div class="col-md-9">
-    <% @wods.each do |w| %>
+    <% @program.wods.each do |w| %>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title"><%= link_to w.name, wod_path(w) %></h3>
@@ -19,7 +19,7 @@
   <div class="col-md-3">
     <h4>Other <%= @program.name %> members</h4>
     <ul class="list-group">
-      <% @users.each do |u| %>
+      <% @program.users.each do |u| %>
         <li class="list-group-item"><%= link_to u.first_name + " " + u.last_name, user_path(u) %></li>
       <% end %>
     </ul>
