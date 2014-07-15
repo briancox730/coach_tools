@@ -12,5 +12,6 @@ class UsersController < ApplicationController
       @to_complete = Statistic.build_to_complete(@available_workouts, @complete)
     end
     @statistic = Statistic.new
+    @front_squat_data = Statistic.get_fs_chart(current_user)
   end
 end
