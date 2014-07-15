@@ -26,7 +26,6 @@
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
-            <li><a href="/users/<%= current_user.id %>/personal_records">PRs</a></li>
             <li><%= link_to 'Your Program', user_program_path(current_user.id, current_user.program_id) %></li>
             <li><%= link_to 'Profile', user_path(current_user) %></li>
             <li><%= link_to 'Settings', edit_user_registration_path %></li>

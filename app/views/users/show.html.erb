@@ -65,13 +65,14 @@
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
+          <%= f.button :submit, "Save", class: "btn btn-lg btn-primary btn-block" %>
         </div>
         <br>
       <% end %>
     <% end %>
   <% end %>
-  <table class="table table-striped">
+  <%= link_to 'Edit Personal Records', edit_user_personal_record_path(current_user.id, current_user.id), class: 'btn btn-warning' %>
+    <table class="table table-striped">
       <thead>
         <tr>
           <th>Movement</th>
@@ -81,9 +82,9 @@
       <tbody>
         <!-- Boiling down Personal Records to an enumerable array -->
         <% @user.personal_record.serializable_hash.to_a[2..-1].each do |m| %>
-          <tr>
-            <td><%= m[0] %></td>
-            <td><%= m[1] %></td>
+          <tr class="pr-row">
+            <td><%= m[0].gsub(/_/, " ").titleize %></td>
+            <td class="value"><%= m[1] %></td>
           </tr>
         <% end %>
       </tbody>

@@ -6,20 +6,15 @@
 class PersonalRecordsController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-    @pr = PersonalRecord.find_by(user_id: current_user.id)
-  end
-
   def edit
     @pr = PersonalRecord.find(current_user.id)
-
   end
 
   def update
     @pr = PersonalRecord.find(params[:id])
     if @pr.update(personal_record_params)
       flash[:notice] = "Your changes were succesfully submitted."
-      redirect_to user_personal_records_path(params[:user_id])
+      redirect_to user_path(current_user)
     else
       flash.now[:notice] = "Your changes were not succesfully submitted."
       render "edit"

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:index, :show] do
-    resources :personal_records, only: [:index, :edit, :update]
+    resources :personal_records, only: [:edit, :update]
     resources :programs, only: [:show]
     resources :statistics, only: [:create]
   end
