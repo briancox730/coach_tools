@@ -18,6 +18,11 @@
                         collection: %w{ a b c d e },
                         input_html: { value: 'a', class: 'form-control'} %>
                         <br>
+            <%= f.input :description,
+                        collection: @piece,
+                        prompt: "Choose part",
+                        input_html: { class: 'form-control'} %>
+                        <br>
             <%= f.input :movement_id,
                         label: 'Select Associated Movement',
                         collection: @movements,
@@ -28,11 +33,6 @@
                         label: 'Select Associated Workout',
                         prompt: "Workouts...",
                         collection: @previous_workouts,
-                        input_html: { class: 'form-control'} %>
-                        <br>
-            <%= f.input :description,
-                        collection: @piece,
-                        prompt: "Choose part",
                         input_html: { class: 'form-control'} %>
                         <br>
             <%= f.input :workout_type_id,
@@ -70,7 +70,7 @@
       </div>
     <% end %>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-4 well">
     <% @wod.workouts.each do |workout| %>
       <div>
         <%= workout.name %>. <%= workout.description %><br>
