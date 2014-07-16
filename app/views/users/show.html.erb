@@ -7,97 +7,101 @@
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-4">
-    <% if @to_complete.size != 0 && current_user.id == @user.id %>
-      <% @to_complete.each do |w| %>
-        <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: w)) do |f| %>
-        <h2><%= w.wod.name + w.name %></h2>
-        <%= f.error_notification %>
-        <p><%= w.description %></p>
-        <p>Last Related Performance: <%= if !Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).nil? then Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).performance end%></p>
-        <% if !w.movement.nil? %>
-          <button class="btn btn-warning display-movement-percentage">Show <%= w.movement.name %> Percentages</button>
-          <br><br>
-          <table class="table table-hover pr-table pr-table-hidden">
-            <thead>
-              <tr>
-                <th><%= w.movement.name %> Percentages</th>
-                <th class="pr"><%= @user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] %></th>
-              </tr>
-            </thead>
-            <tbody class="tbody">
-            </tbody>
-          </table>
-        <% end %>
-
-        <div class="form-inputs">
-          <% if w.workout_type.name == "complete" %>
-            <%= f.input :performance,
-                        label: false,
-                        wrapper_html: { class: 'checkbox' },
-                        input_html: { type: 'checkbox' } ,
-                        inline_label: 'Complete?',
-                        as: :boolean %>
-                        <br>
-          <% elsif w.workout_type.name == "weight" %>
-            <%= f.input :performance,
-                        label: false,
-                        placeholder: 'Best Weight',
-                        input_html: { class: 'form-control'} %>
-                        <br>
-          <% elsif w.workout_type.name == "time" %>
-            <%= f.input :performance,
-                        label: false,
-                        as: :string,
-                        placeholder: 'Time in minutes and seconds',
-                        input_html: { class: 'form-control'} %>
-                        <br>
-          <% else %>
-            <%= f.input :performance,
-                        label: 'Reps',
-                        input_html: { class: 'form-control'} %>
-                        <br>
+    <div class="well">
+      <% if @to_complete.size != 0 && current_user.id == @user.id %>
+        <% @to_complete.each do |w| %>
+          <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: w)) do |f| %>
+          <h2><%= w.wod.name + w.name %></h2>
+          <%= f.error_notification %>
+          <p><%= w.description %></p>
+          <p>Last Related Performance: <%= if !Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).nil? then Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).performance end%></p>
+          <% if !w.movement.nil? %>
+            <button class="btn btn-warning display-movement-percentage">Show <%= w.movement.name %> Percentages</button>
+            <br><br>
+            <table class="table table-hover pr-table pr-table-hidden">
+              <thead>
+                <tr>
+                  <th><%= w.movement.name %> Percentages</th>
+                  <th class="pr"><%= @user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] %></th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+              </tbody>
+            </table>
           <% end %>
-          <%= f.input :comment,
-                      label: false,
-                      placeholder: 'Comments',
-                      input_html: { class: 'form-control'} %>
-                      <br>
-        </div>
 
-        <div class="form-actions">
-          <%= f.button :submit, "Save", class: "btn btn-lg btn-primary btn-block" %>
-        </div>
-        <br>
+          <div class="form-inputs">
+            <% if w.workout_type.name == "complete" %>
+              <%= f.input :performance,
+                          label: false,
+                          wrapper_html: { class: 'checkbox' },
+                          input_html: { type: 'checkbox' } ,
+                          inline_label: 'Complete?',
+                          as: :boolean %>
+                          <br>
+            <% elsif w.workout_type.name == "weight" %>
+              <%= f.input :performance,
+                          label: false,
+                          placeholder: 'Best Weight',
+                          input_html: { class: 'form-control'} %>
+                          <br>
+            <% elsif w.workout_type.name == "time" %>
+              <%= f.input :performance,
+                          label: false,
+                          as: :string,
+                          placeholder: 'Time in minutes and seconds',
+                          input_html: { class: 'form-control'} %>
+                          <br>
+            <% else %>
+              <%= f.input :performance,
+                          label: 'Reps',
+                          input_html: { class: 'form-control'} %>
+                          <br>
+            <% end %>
+            <%= f.input :comment,
+                        label: false,
+                        placeholder: 'Comments',
+                        input_html: { class: 'form-control'} %>
+                        <br>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, "Save", class: "btn btn-lg btn-primary btn-block" %>
+          </div>
+          <br>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
-  <%= link_to 'Edit Personal Records', edit_user_personal_record_path(current_user.id, current_user.id), class: 'btn btn-warning' %>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Movement</th>
-          <th>PR</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Boiling down Personal Records to an enumerable array -->
-        <% @user.personal_record.serializable_hash.to_a[2..-1].each do |m| %>
-          <tr class="pr-row">
-            <td><%= m[0].gsub(/_/, " ").titleize %></td>
-            <td class="value"><%= m[1] %></td>
+    <%= link_to 'Edit Personal Records', edit_user_personal_record_path(current_user.id, current_user.id), class: 'btn btn-warning' %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Movement</th>
+            <th>PR</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <!-- Boiling down Personal Records to an enumerable array -->
+          <% @user.personal_record.serializable_hash.to_a[2..-1].each do |m| %>
+            <tr class="pr-row">
+              <td><%= m[0].gsub(/_/, " ").titleize %></td>
+              <td class="value"><%= m[1] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div class="hidden-xs col-sm-8 well">
-    <!-- <canvas id="myChart"></canvas> -->
-    <% @complete.each do |w| %>
-      <div>
-        Workout: <%= w.workout.description %><br>
-        Performance: <%= w.performance %>
-      </div><br>
-    <% end %>
+  <div class="hidden-xs col-sm-8">
+    <div class="well">
+      <canvas id="myChart"></canvas>
+      <% @complete.each do |w| %>
+        <div>
+          Workout: <%= w.workout.description %><br>
+          Performance: <%= w.performance %>
+        </div><br>
+      <% end %>
+    </div>
   </div>
 </div>
 <script type='text/javascript'>

@@ -6,9 +6,11 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png"
+      href="<%= asset_path 'button-lines-favicon.png' %>">
 </head>
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="navbar navbar-fixed-top" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,7 +20,7 @@
           <span class="icon-bar"></span>
         </button>
         <% if user_signed_in? %>
-          <%= link_to 'Athletes Tools', users_path, class: 'navbar-brand' %>
+          <%= link_to 'Athletes Tools', user_path(current_user), class: 'navbar-brand' %>
         <% else %>
           <%= link_to 'Athletes Tools', new_user_session_path, class: 'navbar-brand' %>
         <% end %>
@@ -41,7 +43,7 @@
 
   <div class="container">
     <% if flash.any? %>
-      <div class="alert alert-success" role="alert">
+      <div class="alert alert-info" role="alert">
         <strong>
           <%= flash[:notice] %>
           <%= flash[:alert] %>

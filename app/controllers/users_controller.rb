@@ -13,6 +13,5 @@ class UsersController < ApplicationController
     end
     @statistic = Statistic.new
     @front_squat_data = Statistic.get_fs_chart(params[:id])
-    binding.pry
   end
 end

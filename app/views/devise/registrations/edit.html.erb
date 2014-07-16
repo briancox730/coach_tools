@@ -2,62 +2,65 @@
   <div class="col-xs-0 col-sm-4">
   </div>
   <div class="col-xs-12 col-sm-4">
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-      <h2>Edit Registration</h2>
-      <%= f.error_notification %>
+    <div class="well">
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <h2>Edit Registration</h2>
+        <%= f.error_notification %>
 
-      <div class="form-inputs">
-        <%= f.input :first_name,
-                    autofocus: true,
-                    label: false,
-                    placeholder: 'First name',
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :last_name,
-                    label: false,
-                    placeholder: 'Last name',
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :email,
-                    label: false,
-                    placeholder: 'Email',
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :password,
-                    label: false,
-                    placeholder: 'Password (leave blank if you don\'t want to change it)',
-                    autocomplete: "off",
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :password_confirmation,
-                    label: false,
-                    placeholder: 'Password confirmation',
-                    autocomplete: "off",
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :current_password,
-                    required: true,
-                    label: false,
-                    autocomplete: "off",
-                    placeholder: 'Current password: To confirm your changes',
-                    input_html: { class: 'form-control'} %>
-                    <br>
-        <%= f.input :program_id,
-                    collection: Program.all,
-                    prompt: "Select your program",
-                    input_html: { class: 'form-control'}  %>
-                    <br>
-      </div>
+        <div class="form-inputs">
+          <%= f.input :first_name,
+                      autofocus: true,
+                      label: false,
+                      placeholder: 'First name',
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :last_name,
+                      label: false,
+                      placeholder: 'Last name',
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :email,
+                      label: false,
+                      placeholder: 'Email',
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :password,
+                      label: false,
+                      placeholder: 'Password (leave blank if you don\'t want to change it)',
+                      autocomplete: "off",
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :password_confirmation,
+                      label: false,
+                      placeholder: 'Password confirmation',
+                      autocomplete: "off",
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :current_password,
+                      required: true,
+                      label: false,
+                      autocomplete: "off",
+                      placeholder: 'Current password: To confirm your changes',
+                      input_html: { class: 'form-control'} %>
+                      <br>
+          <%= f.input :program_id,
+                      collection: Program.all,
+                      prompt: "Select your program",
+                      input_html: { class: 'form-control'}  %>
+                      <br>
+        </div>
 
-      <div class="form-actions">
-        <%= f.button :submit, "Update", class: "btn btn-lg btn-warning btn-block" %>
-        <% end %>
+        <div class="form-actions">
+          <%= f.button :submit, "Update", class: "btn btn-lg btn-warning btn-block" %>
+          <% end %>
+        </div>
+        <br>
+        <h3>Cancel my account</h3>
+        <br>
+        <%= button_to "Cancel my account", registration_path(resource_name), class: "btn btn-lg btn-danger btn-block", data: { confirm: "Are you sure?" }, method: :delete %>
+        <br>
+        <%= link_to "Back", :back %>
       </div>
-      <br>
-      <h3>Cancel my account</h3>
-      <br>
-      <%= button_to "Cancel my account", registration_path(resource_name), class: "btn btn-lg btn-danger btn-block", data: { confirm: "Are you sure?" }, method: :delete %>
-      <%= link_to "Back", :back %>
     </div>
 
   <div class="col-xs-0 col-sm-4">
