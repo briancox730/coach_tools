@@ -7,64 +7,226 @@ class Statistic < ActiveRecord::Base
   validates_presence_of :performance
 
   def self.build_oly_data(user)
-    @user = User.find(user.to_i).personal_record
+    @user = User.find(user.to_i)
+    @program = Program.find(@user.program_id).users.includes(:personal_record)
+    user_snatch = @user.personal_record.snatch
+    user_cnj = @user.personal_record.clean_and_jerk
+    user_total = user_snatch + user_cnj
+    avg_snatch = @program.average(:snatch).to_i
+    avg_cnj = @program.average(:clean_and_jerk).to_i
     data = {
     labels: ["Snatch", "Clean and Jerk", "Total"],
     datasets: [
         {
             label: "User",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
+            fillColor: "rgba(83,187,244,0.2)",
+            strokeColor: "rgba(83,187,244,1)",
+            pointColor: "rgba(83,187,244,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [@user.snatch, @user.clean, @user.clean_and_jerk]
+            data: [user_snatch, user_cnj, user_total]
         },
         {
             label: "Group Average",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
+            fillColor: "rgba(177,235,0,0.2)",
+            strokeColor: "rgba(177,235,0,1)",
+            pointColor: "rgba(177,235,0,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
-            data: []
+            data: [avg_snatch, avg_cnj, (avg_snatch + avg_cnj)]
         }
     ]}
   end
 
-  def self.get_fs_chart(user)
+  def self.build_cf_data(user)
+    @user = User.find(user.to_i)
+    @program = Program.find(@user.program_id).users.includes(:personal_record)
+    user_press = @user.personal_record.press
+    user_squat = @user.personal_record.back_squat
+    user_dead = @user.personal_record.dead_lift
+    user_total = user_press + user_squat + user_dead
+
+    avg_press = @program.average(:press).to_i
+    avg_squat = @program.average(:back_squat).to_i
+    avg_dead = @program.average(:dead_lift).to_i
+    avg_total = avg_press + avg_squat + avg_dead
     data = {
-      labels: [],
-      datasets: [
-          {
-              label: "My First dataset",
-              fillColor: "rgba(0,255,0,0.2)",
-              strokeColor: "rgba(0,255,0,1)",
-              pointColor: "rgba(144,238,144,1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(220,220,220,1)",
-              data: []
-          },
-          # {
-          #     label: "My Second dataset",
-          #     fillColor: "rgba(0,255,255,0.2)",
-          #     strokeColor: "rgba(0,255,255,1)",
-          #     pointColor: "rgba(32,178,170,1)",
-          #     pointStrokeColor: "#fff",
-          #     pointHighlightFill: "#fff",
-          #     pointHighlightStroke: "rgba(151,187,205,1)",
-          #     data: [28, 48, 40]
-          # }
-          ]}
-    available_stats = Statistic.where(user_id: user)
-    available_stats.each do |s|
-      data[:labels] << s.workout.wod.name
-      data[:datasets][0][:data] << s.performance
-    end
-    data
+    labels: ["Press", "Squat", "Deadlift", "Total"],
+    datasets: [
+        {
+            label: "User",
+            fillColor: "rgba(255,133,203,0.2)",
+            strokeColor: "rgba(255,133,203,1)",
+            pointColor: "rgba(255,133,203,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [user_press, user_squat, user_dead, user_total]
+        },
+        {
+            label: "Group Average",
+            fillColor: "rgba(177,235,0,0.2)",
+            strokeColor: "rgba(177,235,0,1)",
+            pointColor: "rgba(177,235,0,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [avg_press, avg_squat, avg_dead, avg_total]
+        }
+    ]}
+  end
+
+  def self.build_power_data(user)
+    @user = User.find(user.to_i)
+    @program = Program.find(@user.program_id).users.includes(:personal_record)
+    user_bench_press = @user.personal_record.bench_press
+    user_squat = @user.personal_record.back_squat
+    user_dead = @user.personal_record.dead_lift
+    user_total = user_bench_press + user_squat + user_dead
+
+    avg_bench_press = @program.average(:bench_press).to_i
+    avg_squat = @program.average(:back_squat).to_i
+    avg_dead = @program.average(:dead_lift).to_i
+    avg_total = avg_bench_press + avg_squat + avg_dead
+    data = {
+    labels: ["bench_press", "Squat", "Deadlift", "Total"],
+    datasets: [
+        {
+            label: "User",
+            fillColor: "rgba(255,67,46,0.2)",
+            strokeColor: "rgba(255,67,46,1)",
+            pointColor: "rgba(255,67,46,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [user_bench_press, user_squat, user_dead, user_total]
+        },
+        {
+            label: "Group Average",
+            fillColor: "rgba(177,235,0,0.2)",
+            strokeColor: "rgba(177,235,0,1)",
+            pointColor: "rgba(177,235,0,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [avg_bench_press, avg_squat, avg_dead, avg_total]
+        }
+    ]}
+  end
+
+  def self.build_oly_relative_data(user)
+    @user = User.find(user.to_i)
+    @program = Program.find(@user.program_id).users.includes(:personal_record)
+    user_snatch = @user.personal_record.snatch.to_f / @user.personal_record.body_weight.to_f
+    user_cnj = @user.personal_record.clean_and_jerk.to_f  / @user.personal_record.body_weight.to_f
+    user_total = (@user.personal_record.snatch.to_f + @user.personal_record.clean_and_jerk.to_f)  / @user.personal_record.body_weight.to_f
+    avg_snatch = @program.average(:snatch).to_f / @program.average(:body_weight).to_f
+    avg_cnj = @program.average(:clean_and_jerk).to_f  / @program.average(:body_weight).to_f
+    avg_total = (@program.average(:snatch).to_f + @program.average(:clean_and_jerk).to_f) / @program.average(:body_weight).to_f
+    data = {
+    labels: ["Snatch", "Clean and Jerk", "Total"],
+    datasets: [
+        {
+            label: "User",
+            fillColor: "rgba(83,187,244,0.2)",
+            strokeColor: "rgba(83,187,244,1)",
+            pointColor: "rgba(83,187,244,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [user_snatch, user_cnj, user_total]
+        },
+        {
+            label: "Group Average",
+            fillColor: "rgba(177,235,0,0.2)",
+            strokeColor: "rgba(177,235,0,1)",
+            pointColor: "rgba(177,235,0,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [avg_snatch, avg_cnj, avg_total]
+        }
+    ]}
+  end
+
+  def self.build_cf_relative_data(user)
+    @user = User.find(user.to_i)
+    @program = Program.find(@user.program_id).users.includes(:personal_record)
+    user_press = @user.personal_record.press.to_f / @user.personal_record.body_weight.to_f
+    user_squat = @user.personal_record.back_squat.to_f / @user.personal_record.body_weight.to_f
+    user_dead = @user.personal_record.dead_lift.to_f / @user.personal_record.body_weight.to_f
+    user_total = (@user.personal_record.press.to_f + @user.personal_record.back_squat.to_f + @user.personal_record.dead_lift.to_f)  / @user.personal_record.body_weight.to_f
+
+    avg_press = @program.average(:press).to_f / @program.average(:body_weight).to_f
+    avg_squat = @program.average(:back_squat).to_f / @program.average(:body_weight).to_f
+    avg_dead = @program.average(:dead_lift).to_f / @program.average(:body_weight).to_f
+    avg_total = (@program.average(:press).to_f + @program.average(:back_squat).to_f + @program.average(:dead_lift).to_f) / @program.average(:body_weight).to_f
+    data = {
+    labels: ["Press", "Squat", "Deadlift", "Total"],
+    datasets: [
+        {
+            label: "User",
+            fillColor: "rgba(255,133,203,0.2)",
+            strokeColor: "rgba(255,133,203,1)",
+            pointColor: "rgba(255,133,203,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [user_press, user_squat, user_dead, user_total]
+        },
+        {
+            label: "Group Average",
+            fillColor: "rgba(177,235,0,0.2)",
+            strokeColor: "rgba(177,235,0,1)",
+            pointColor: "rgba(177,235,0,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [avg_press, avg_squat, avg_dead, avg_total]
+        }
+    ]}
+  end
+
+  def self.build_power_relative_data(user)
+    @user = User.find(user.to_i)
+    @program = Program.find(@user.program_id).users.includes(:personal_record)
+    user_body_weight = @user.personal_record.body_weight.to_f
+    user_bench_press = @user.personal_record.bench_press.to_f / user_body_weight
+    user_squat = @user.personal_record.back_squat.to_f / user_body_weight
+    user_dead = @user.personal_record.dead_lift.to_f / user_body_weight
+    user_total = (@user.personal_record.bench_press.to_f + @user.personal_record.back_squat.to_f + @user.personal_record.dead_lift.to_f) / user_body_weight
+
+    avg_body_weight = @program.average(:body_weight).to_f
+    avg_bench_press = @program.average(:bench_press).to_f / avg_body_weight
+    avg_squat = @program.average(:back_squat).to_f / avg_body_weight
+    avg_dead = @program.average(:dead_lift).to_f / avg_body_weight
+    avg_total = (@program.average(:bench_press) + @program.average(:back_squat).to_f + @program.average(:dead_lift).to_f) / avg_body_weight
+    data = {
+    labels: ["bench_press", "Squat", "Deadlift", "Total"],
+    datasets: [
+        {
+            label: "User",
+            fillColor: "rgba(255,67,46,0.2)",
+            strokeColor: "rgba(255,67,46,1)",
+            pointColor: "rgba(255,67,46,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [user_bench_press, user_squat, user_dead, user_total]
+        },
+        {
+            label: "Group Average",
+            fillColor: "rgba(177,235,0,0.2)",
+            strokeColor: "rgba(177,235,0,1)",
+            pointColor: "rgba(177,235,0,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [avg_bench_press, avg_squat, avg_dead, avg_total]
+        }
+    ]}
   end
 
   def self.performance_converter(performance)

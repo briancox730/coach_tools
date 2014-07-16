@@ -1,7 +1,7 @@
 <div class="row">
-  <div class="col-xs-12 col-sm-4">
+  <div id="left-bar" class="col-xs-12 col-sm-4">
     <div class="well">
-      <% if @to_complete.size != 0 && current_user.id == @user.id %>
+      <% if current_user.id == @user.id && @to_complete.size != 0 %>
         <% @to_complete.each do |w| %>
           <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: w)) do |f| %>
           <h2><%= w.wod.name + w.name %></h2>
@@ -65,7 +65,9 @@
         <% end %>
       <% end %>
     <% end %>
-    <%= link_to 'Edit Personal Records', edit_user_personal_record_path(current_user.id, current_user.id), class: 'btn btn-warning' %>
+    <% if current_user.id == @user.id && @to_complete.size != 0 %>
+      <%= link_to 'Edit Personal Records', edit_user_personal_record_path(current_user.id, current_user.id), class: 'btn btn-warning right' %>
+    <% end %>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -85,16 +87,35 @@
       </table>
     </div>
   </div>
-  <div class="hidden-xs col-sm-8">
-    <div class="row">
-      <div class="col-sx-4">
-        <canvas id="oly-total"></canvas>
+  <div id="content" class="hidden-xs col-sm-8">
+    <div class="dark-well">
+      <div class="overflow">
+        <button type="button" id="graph-toggle" class="btn btn-default right">Large View</button>
       </div>
-      <div class="col-sx-4">
-        <canvas id="cf-total"></canvas>
+      <br>
+      <div class="row">
+        <div class="col-sm-6 col-left">
+          <canvas id="oly-total"></canvas>
+        </div>
+        <div class="col-sm-6 col-right">
+          <canvas id="oly-relative"></canvas>
+        </div>
       </div>
-      <div class="col-sx-4">
-        <canvas id="power-total"></canvas>
+      <div class="row">
+        <div class="col-sm-6 col-left">
+          <canvas id="cf-total"></canvas>
+        </div>
+        <div class="col-sm-6 col-right">
+          <canvas id="cf-relative"></canvas>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-left">
+          <canvas id="power-total"></canvas>
+        </div>
+        <div class="col-sm-6 col-right">
+          <canvas id="power-relative"></canvas>
+        </div>
       </div>
     </div>
     <div class="well">
@@ -110,19 +131,70 @@
 <script type='text/javascript'>
   $(function(){
     Chart.defaults.global.responsive = true;
+    Chart.defaults.global.scaleLineColor = "rgba(255,255,255,.4)";
+    Chart.defaults.global.scaleFontColor = "rgba(255,255,255,.8)";
+    Chart.defaults.global.scaleIntegersOnly = true;
     var data1 = $.parseJSON('<%=  @oly_data.to_json.html_safe %>');
     var target1 = "#oly-total"
-    buildRadar(data, target1);
+    olyChart = buildRadar(data1, target1);
     var data2 = $.parseJSON('<%=  @cf_data.to_json.html_safe %>');
     var target2 = "#cf-total"
-    buildRadar(data2, target2);
+    cfChart = buildRadar(data2, target2);
     var data3 = $.parseJSON('<%=  @power_data.to_json.html_safe %>');
     var target3 = "#power-total"
-    buildRadar(data3, target3);
+    powerChart = buildRadar(data3, target3);
+    var data4 = $.parseJSON('<%=  @oly_relative_data.to_json.html_safe %>');
+    var target4 = "#oly-relative"
+    olyRelativeChart = buildLine(data4, target4);
+    var data5 = $.parseJSON('<%=  @cf_relative_data.to_json.html_safe %>');
+    var target5 = "#cf-relative"
+    cfRelativeChart = buildLine(data5, target5);
+    var data6 = $.parseJSON('<%=  @power_relative_data.to_json.html_safe %>');
+    var target6 = "#power-relative"
+    powerRelativeChart = buildLine(data6, target6);
+    $('#graph-toggle').click(function(e) {
+      e.preventDefault();
+      $('#content').toggleClass('col-sm-8');
+      $('#content').toggleClass('col-sm-12');
+      $('#left-bar').toggleClass('hidden-sm');
+      $('#left-bar').toggleClass('hidden-md');
+      $('#left-bar').toggleClass('hidden-lg');
+      olyChart.destroy();
+      cfChart.destroy();
+      powerChart.destroy();
+      olyRelativeChart.destroy();
+      cfRelativeChart.destroy();
+      powerRelativeChart.destroy();
+      var data1 = $.parseJSON('<%=  @oly_data.to_json.html_safe %>');
+      var target1 = "#oly-total"
+      olyChart = buildRadar(data1, target1);
+      var data2 = $.parseJSON('<%=  @cf_data.to_json.html_safe %>');
+      var target2 = "#cf-total"
+      cfChart = buildRadar(data2, target2);
+      var data3 = $.parseJSON('<%=  @power_data.to_json.html_safe %>');
+      var target3 = "#power-total"
+      powerChart = buildRadar(data3, target3);
+      var data4 = $.parseJSON('<%=  @oly_relative_data.to_json.html_safe %>');
+      var target4 = "#oly-relative"
+      olyRelativeChart = buildLine(data4, target4);
+      var data5 = $.parseJSON('<%=  @cf_relative_data.to_json.html_safe %>');
+      var target5 = "#cf-relative"
+      cfRelativeChart = buildLine(data5, target5);
+      var data6 = $.parseJSON('<%=  @power_relative_data.to_json.html_safe %>');
+      var target6 = "#power-relative"
+      powerRelativeChart = buildLine(data6, target6);
+    });
   });
 
-  function buildFSChart(data, target){
+  function buildRadar(data, target){
     var ctx = $(target).get(0).getContext("2d");
-    var myNewChart = new Chart(ctx).Radar(data);
+    var chart = new Chart(ctx).Line(data);
+    return chart
+  };
+
+  function buildLine(data, target){
+    var ctx = $(target).get(0).getContext("2d");
+    var chart = new Chart(ctx).Bar(data);
+    return chart
   };
 </script>

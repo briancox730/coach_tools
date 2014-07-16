@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140716013214) do
+ActiveRecord::Schema.define(version: 20140716015728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20140716013214) do
     t.integer "dead_lift"
     t.integer "body_weight"
     t.integer "clean_and_jerk"
+    t.integer "bench_press"
   end
 
   create_table "programs", force: true do |t|
