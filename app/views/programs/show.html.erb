@@ -17,7 +17,9 @@
     <% end %>
   </div>
   <div class="col-md-3">
-    <h4>Other <%= @program.name %> members</h4>
+    <div class="page-header inverse">
+      <h4>Other <%= @program.name %> members</h4>
+    </div>
     <ul class="list-group">
       <% @program.users.each do |u| %>
         <li class="list-group-item"><%= link_to u.first_name + " " + u.last_name, user_path(u) %></li>

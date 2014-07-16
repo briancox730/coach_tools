@@ -1,5 +1,5 @@
 <div class="row">
-  <div id="left-bar" class="col-xs-12 col-sm-4">
+  <div id="left-bar" class="col-sm-4">
     <div class="well">
       <% if current_user.id == @user.id && @to_complete.size != 0 %>
         <% @to_complete.each do |w| %>
@@ -65,8 +65,8 @@
         <% end %>
       <% end %>
     <% end %>
-    <% if current_user.id == @user.id && @to_complete.size != 0 %>
-      <%= link_to 'Edit Personal Records', edit_user_personal_record_path(current_user.id, current_user.id), class: 'btn btn-warning right' %>
+    <% if current_user.id == @user.id %>
+      <%= link_to 'Edit Personal Records', edit_user_personal_record_path(current_user.id, current_user.id), class: 'btn btn-warning' %>
     <% end %>
       <table class="table table-striped">
         <thead>
@@ -96,25 +96,31 @@
         <br>
         <div class="row">
           <div class="col-sm-6 col-left">
+            <h3>Olympic Total <small>weight</small></h3>
             <canvas id="oly-total"></canvas>
           </div>
           <div class="col-sm-6 col-right">
+            <h3>Olympic Total <small>body weight ratio</small></h3>
             <canvas id="oly-relative"></canvas>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-6 col-left">
+            <h3>CrossFit Total <small>weight</small></h3>
             <canvas id="cf-total"></canvas>
           </div>
           <div class="col-sm-6 col-right">
+            <h3>CrossFit Total <small>body weight ratio</small></h3>
             <canvas id="cf-relative"></canvas>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-6 col-left">
+            <h3>Power Lifting Total <small>weight</small></h3>
             <canvas id="power-total"></canvas>
           </div>
           <div class="col-sm-6 col-right">
+            <h3>Power Lifting Total <small>body weight ratio</small></h3>
             <canvas id="power-relative"></canvas>
           </div>
         </div>

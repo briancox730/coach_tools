@@ -50,10 +50,11 @@
         <% end %>
       </div>
     <% end %>
-    <% @wod.description.split("\n").each do |l| %>
-      <%= l %><br>
-    <% end %>
-
+    <div class="well">
+      <% @wod.description.split("\n").each do |l| %>
+        <div><%= l %><br></div>
+      <% end %>
+    </div>
     <% @statistics.each do |statistic| %>
       <div class="panel panel-default">
         <!-- Default panel contents -->
@@ -70,13 +71,16 @@
       </div>
     <% end %>
   </div>
-  <div class="col-md-4 well">
-    <% @wod.workouts.each do |workout| %>
-      <div>
-        <%= workout.name %>. <%= workout.description %><br>
-        <%= workout.workout_type.name %><br>
-      </div>
-      <br>
-    <% end %>
+  <div class="col-md-4">
+    <div class="well">
+      <h3>Associated Workout Pieces</h3>
+      <% @wod.workouts.each do |workout| %>
+        <div>
+          <%= workout.name %>. <%= workout.description %><br>
+          <%= workout.workout_type.name %><br>
+        </div>
+        <br>
+      <% end %>
+  </div>
   </div>
 </div>
