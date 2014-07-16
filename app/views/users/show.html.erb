@@ -87,34 +87,36 @@
       </table>
     </div>
   </div>
-  <div id="content" class="hidden-xs col-sm-8">
-    <div class="dark-well">
-      <div class="overflow">
-        <button type="button" id="graph-toggle" class="btn btn-default right">Large View</button>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-sm-6 col-left">
-          <canvas id="oly-total"></canvas>
+  <div id="content" class="col-sm-8">
+    <div class="row">
+      <div class="dark-well">
+        <div class="overflow hidden-xs">
+          <button type="button" id="graph-toggle" class="btn btn-default right">Large Graphs</button>
         </div>
-        <div class="col-sm-6 col-right">
-          <canvas id="oly-relative"></canvas>
+        <br>
+        <div class="row">
+          <div class="col-sm-6 col-left">
+            <canvas id="oly-total"></canvas>
+          </div>
+          <div class="col-sm-6 col-right">
+            <canvas id="oly-relative"></canvas>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6 col-left">
-          <canvas id="cf-total"></canvas>
+        <div class="row">
+          <div class="col-sm-6 col-left">
+            <canvas id="cf-total"></canvas>
+          </div>
+          <div class="col-sm-6 col-right">
+            <canvas id="cf-relative"></canvas>
+          </div>
         </div>
-        <div class="col-sm-6 col-right">
-          <canvas id="cf-relative"></canvas>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6 col-left">
-          <canvas id="power-total"></canvas>
-        </div>
-        <div class="col-sm-6 col-right">
-          <canvas id="power-relative"></canvas>
+        <div class="row">
+          <div class="col-sm-6 col-left">
+            <canvas id="power-total"></canvas>
+          </div>
+          <div class="col-sm-6 col-right">
+            <canvas id="power-relative"></canvas>
+          </div>
         </div>
       </div>
     </div>
@@ -154,6 +156,11 @@
     powerRelativeChart = buildLine(data6, target6);
     $('#graph-toggle').click(function(e) {
       e.preventDefault();
+      if ($(this).html() == "Small Graphs") {
+        $(this).html('Large Graphs');
+      } else {
+        $(this).html('Small Graphs');
+      };
       $('#content').toggleClass('col-sm-8');
       $('#content').toggleClass('col-sm-12');
       $('#left-bar').toggleClass('hidden-sm');
