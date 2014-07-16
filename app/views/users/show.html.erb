@@ -1,11 +1,4 @@
 <div class="row">
-  <div class="hidden-xs col-sm-12">
-    <div class="page-header">
-      <h1><%= @user.first_name + " " + @user.last_name %></h1>
-    </div>
-  </div>
-</div>
-<div class="row">
   <div class="col-xs-12 col-sm-4">
     <div class="well">
       <% if @to_complete.size != 0 && current_user.id == @user.id %>
@@ -93,8 +86,18 @@
     </div>
   </div>
   <div class="hidden-xs col-sm-8">
+    <div class="row">
+      <div class="col-sx-4">
+        <canvas id="oly-total"></canvas>
+      </div>
+      <div class="col-sx-4">
+        <canvas id="cf-total"></canvas>
+      </div>
+      <div class="col-sx-4">
+        <canvas id="power-total"></canvas>
+      </div>
+    </div>
     <div class="well">
-      <canvas id="myChart"></canvas>
       <% @complete.each do |w| %>
         <div>
           Workout: <%= w.workout.description %><br>
@@ -107,12 +110,19 @@
 <script type='text/javascript'>
   $(function(){
     Chart.defaults.global.responsive = true;
-    var data = $.parseJSON('<%=  @front_squat_data.to_json.html_safe %>');
-    buildFSChart(data);
+    var data1 = $.parseJSON('<%=  @oly_data.to_json.html_safe %>');
+    var target1 = "#oly-total"
+    buildRadar(data, target1);
+    var data2 = $.parseJSON('<%=  @cf_data.to_json.html_safe %>');
+    var target2 = "#cf-total"
+    buildRadar(data2, target2);
+    var data3 = $.parseJSON('<%=  @power_data.to_json.html_safe %>');
+    var target3 = "#power-total"
+    buildRadar(data3, target3);
   });
 
-  function buildFSChart(data){
-    var ctx = $("#myChart").get(0).getContext("2d");
-    var myNewChart = new Chart(ctx).Line(data);
+  function buildFSChart(data, target){
+    var ctx = $(target).get(0).getContext("2d");
+    var myNewChart = new Chart(ctx).Radar(data);
   };
 </script>

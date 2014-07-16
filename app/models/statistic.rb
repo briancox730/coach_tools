@@ -6,6 +6,34 @@ class Statistic < ActiveRecord::Base
   validates_presence_of :workout_id
   validates_presence_of :performance
 
+  def self.build_oly_data(user)
+    @user = User.find(user.to_i).personal_record
+    data = {
+    labels: ["Snatch", "Clean and Jerk", "Total"],
+    datasets: [
+        {
+            label: "User",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [@user.snatch, @user.clean, @user.clean_and_jerk]
+        },
+        {
+            label: "Group Average",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: []
+        }
+    ]}
+  end
+
   def self.get_fs_chart(user)
     data = {
       labels: [],

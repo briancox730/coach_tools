@@ -12,6 +12,8 @@ class UsersController < ApplicationController
       @to_complete = Statistic.build_to_complete(@available_workouts, @complete)
     end
     @statistic = Statistic.new
-    @front_squat_data = Statistic.get_fs_chart(params[:id])
+    @oly_data = Statistic.build_oly_data(params[:id])
+    @cf_data = Statistic.build_cf_data(params[:id])
+    @power_data = Statistic.build_power_data(params[:id])
   end
 end
