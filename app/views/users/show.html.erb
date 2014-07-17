@@ -137,11 +137,36 @@
   </div>
 </div>
 <script type='text/javascript'>
-  $(function(){
+  $(document).ready(function(){
     Chart.defaults.global.responsive = true;
     Chart.defaults.global.scaleLineColor = "rgba(255,255,255,.4)";
     Chart.defaults.global.scaleFontColor = "rgba(255,255,255,.8)";
     Chart.defaults.global.scaleIntegersOnly = true;
+    buildGraphs();
+    $('#graph-toggle').on('click', function(e) {
+      console.log('inside listener');
+      e.preventDefault();
+      if ($(this).html() == "Small Graphs") {
+        $(this).html('Large Graphs');
+      } else {
+        $(this).html('Small Graphs');
+      }
+      $('#content').toggleClass('col-sm-8');
+      $('#content').toggleClass('col-sm-12');
+      $('#left-bar').toggleClass('hidden-sm');
+      $('#left-bar').toggleClass('hidden-md');
+      $('#left-bar').toggleClass('hidden-lg');
+      olyChart.destroy();
+      cfChart.destroy();
+      powerChart.destroy();
+      olyRelativeChart.destroy();
+      cfRelativeChart.destroy();
+      powerRelativeChart.destroy();
+      buildGraphs();
+    });
+  });
+
+  function buildGraphs(){
     var data1 = $.parseJSON('<%=  @oly_data.to_json.html_safe %>');
     var target1 = "#oly-total"
     olyChart = buildRadar(data1, target1);
@@ -160,44 +185,7 @@
     var data6 = $.parseJSON('<%=  @power_relative_data.to_json.html_safe %>');
     var target6 = "#power-relative"
     powerRelativeChart = buildLine(data6, target6);
-    $('#graph-toggle').click(function(e) {
-      e.preventDefault();
-      if ($(this).html() == "Small Graphs") {
-        $(this).html('Large Graphs');
-      } else {
-        $(this).html('Small Graphs');
-      };
-      $('#content').toggleClass('col-sm-8');
-      $('#content').toggleClass('col-sm-12');
-      $('#left-bar').toggleClass('hidden-sm');
-      $('#left-bar').toggleClass('hidden-md');
-      $('#left-bar').toggleClass('hidden-lg');
-      olyChart.destroy();
-      cfChart.destroy();
-      powerChart.destroy();
-      olyRelativeChart.destroy();
-      cfRelativeChart.destroy();
-      powerRelativeChart.destroy();
-      var data1 = $.parseJSON('<%=  @oly_data.to_json.html_safe %>');
-      var target1 = "#oly-total"
-      olyChart = buildRadar(data1, target1);
-      var data2 = $.parseJSON('<%=  @cf_data.to_json.html_safe %>');
-      var target2 = "#cf-total"
-      cfChart = buildRadar(data2, target2);
-      var data3 = $.parseJSON('<%=  @power_data.to_json.html_safe %>');
-      var target3 = "#power-total"
-      powerChart = buildRadar(data3, target3);
-      var data4 = $.parseJSON('<%=  @oly_relative_data.to_json.html_safe %>');
-      var target4 = "#oly-relative"
-      olyRelativeChart = buildLine(data4, target4);
-      var data5 = $.parseJSON('<%=  @cf_relative_data.to_json.html_safe %>');
-      var target5 = "#cf-relative"
-      cfRelativeChart = buildLine(data5, target5);
-      var data6 = $.parseJSON('<%=  @power_relative_data.to_json.html_safe %>');
-      var target6 = "#power-relative"
-      powerRelativeChart = buildLine(data6, target6);
-    });
-  });
+  };
 
   function buildRadar(data, target){
     var ctx = $(target).get(0).getContext("2d");

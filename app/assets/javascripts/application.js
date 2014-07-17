@@ -17,5 +17,3 @@
 //= require bootstrap.min
 //= require custom
 //= require Chart.min
-//= require turbolinks
-
