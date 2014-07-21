@@ -28,5 +28,6 @@ Task List:
 - [ ] Like performances
 - [ ] Build Friends/Workout partners
 
+![Alt text](/profile-page.png?raw=true "Profile Page")
 
 ![Alt text](/schema.png?raw=true "Schema")
