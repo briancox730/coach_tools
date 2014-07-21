@@ -5,7 +5,7 @@
 </div>
 <div class="row">
   <div class="col-md-8">
-    <% if current_user.admin == true %>
+    <% if user_signed_in? && current_user.admin == true %>
       <div class="well">
         <%= simple_form_for([@wod, @workout], url: wod_workouts_path(@wod)) do |f| %>
           <h4>Enter new workout for <%= @wod.name %></h4>
