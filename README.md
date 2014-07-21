@@ -1,6 +1,10 @@
 # Coach Tools
 ### A workout program scraper and data/statistic builder
 
+Athletes Tools is a data-gathering app for athletes following a structured athletics program. It was built using Ruby on Rails with charts and graphs delivered by Javascript. It delivers workouts automatically to athletes using HTML parsing with Nokogiri.
+
+URL: http://athletes-tools.herokuapp.com/
+
 Task List:
 
 - [ ] Authentication with Devise
