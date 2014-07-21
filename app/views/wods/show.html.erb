@@ -66,6 +66,9 @@
             <% if performance.workout.workout_type.name == "weight" %>
               <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;<%= performance.performance %>lbs</li>
             <% end %>
+            <% if performance.workout.workout_type.name == "time" %>
+              <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;<%= performance.performance %></li>
+            <% end %>
           <% end %>
         </ul>
       </div>
