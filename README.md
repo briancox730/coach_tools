@@ -7,24 +7,23 @@ URL: http://athletes-tools.herokuapp.com/
 
 Task List:
 
-- [ ] Authentication with Devise
-  - [ ] Admin name spacing
+- [x] Authentication with Devise
+  - [x] Admin name spacing
   - [x] User login
 - [x] Page Scraping with Nokogiri
-- [ ] Workout recognition and building
+- [x] Workout recognition and building
   - [x] Scrapes workout page
   - [x] Spits it down in to "workouts"
-  - [ ] Build workout to workout relationships
-  - [ ] Movement relationship and loading on workouts
+  - [x] Build workout to workout relationships
+  - [x] Movement relationship and loading on workouts
 - [x] Initial database schema
 - [x] Personal record percentages
 - [x] Program Association
 - [x] Workouts that need to be completed show on user show page
-  - [ ] eg. (This is Squat here are your squat percentages)
+  - [x] eg. (This is Squat here are your squat percentages)
 - [ ] Automatically classify workouts
 - [ ] Build Workout and Athlete statistics and displays
-  - [ ] Athlete show page
-  - [ ] D3 Star plot
+  - [x] Athlete show page
   - [ ] Program show stats
   - [ ] Workout show page
 - [ ] Buid movement relation hierarchy
