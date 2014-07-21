@@ -28,6 +28,11 @@ Task List:
 - [ ] Like performances
 - [ ] Build Friends/Workout partners
 
+#### Mobile First Design (weight breakdown)
+![Alt text](/mobile-profile-page.png?raw=true "Profile Page")
+#### Comparison Graph on mobile
+![Alt text](/mobile-graphs.png?raw=true "Profile Page")
+#### Graphing adjustable for different devies
 ![Alt text](/profile-page.png?raw=true "Profile Page")
-
+#### Schema
 ![Alt text](/schema.png?raw=true "Schema")
