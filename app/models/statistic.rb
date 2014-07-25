@@ -244,15 +244,16 @@ class Statistic < ActiveRecord::Base
   def self.build_to_complete(available_workouts, completed_workouts)
     to_complete = []
     available_workouts.each do |w|
-      flag = false
+      flag = true
       completed_workouts.each do |c|
         if c.workout_id == w.id
-          flag = true
+          flag = false
         end
       end
-      if !flag
+      if flag
         to_complete << w
       end
+      binding.pry
     end
     to_complete.sort_by(&:created_at).reverse
   end
