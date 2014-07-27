@@ -253,7 +253,6 @@ class Statistic < ActiveRecord::Base
       if flag
         to_complete << w
       end
-      binding.pry
     end
     to_complete.sort_by(&:created_at).reverse
   end

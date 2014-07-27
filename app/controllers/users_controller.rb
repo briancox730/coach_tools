@@ -5,11 +5,16 @@ class UsersController < ApplicationController
   end
 
   def show
+    @time = Time.now.strftime("%y%m%d")
     @complete = Statistic.where(user_id: params[:id]).order(created_at: :desc).includes(:workout)
     @user = User.find(params[:id])
     if current_user.id == @user.id
-      @available_workouts = Program.find(current_user.program_id).workouts
-      @to_complete = Statistic.build_to_complete(@available_workouts, @complete)
+      if !Program.find(current_user.program_id).wods.find_by(name: @time).nil?
+        @available_workouts = Program.find(current_user.program_id).wods.find_by(name: @time).workouts
+        @to_complete = Statistic.build_to_complete(@available_workouts, @complete)
+      else
+        @to_complete = []
+      end
     end
     @statistic = Statistic.new
     if !@user.personal_record.snatch.nil? && !@user.personal_record.clean_and_jerk.nil?
