@@ -9,9 +9,9 @@ class UsersController < ApplicationController
     @complete = Statistic.where(user_id: params[:id]).order(created_at: :desc).includes(:workout)
     @user = User.find(params[:id])
     if current_user.id == @user.id
-      if !Program.find(current_user.program_id).wods.find_by(name: @time).nil?
-        @available_workouts = Program.find(current_user.program_id).wods.find_by(name: @time).workouts
-        @to_complete = Statistic.build_to_complete(@available_workouts, @complete)
+      if !@user.program.wods.find_by(name: @time).nil?
+        @available_workouts = @user.program.wods.find_by(name: @time).workouts
+        @to_complete = Statistic.build_to_complete(@available_workouts, @complete).reverse
       else
         @to_complete = []
       end
