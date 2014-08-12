@@ -137,9 +137,9 @@
               <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;Complete</li>
             <% elsif performance.workout.workout_type.name == "time" %>
               <% if performance.performance >= 3599 %>
-                <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;<%= Time.at(performance.performance).gmtime.strftime('%R:%S') + " " + hours %></li>
+                <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;<%= Time.at(performance.performance).gmtime.strftime('%R:%S') + " hours" %></li>
               <% else %>
-                <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;<%= Time.at(performance.performance).gmtime.strftime('%M:%S') + " " + minutes %></li>
+                <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;<%= Time.at(performance.performance).gmtime.strftime('%M:%S') + " minutes" %></li>
               <% end %>
             <% end %>
           <% end %>
