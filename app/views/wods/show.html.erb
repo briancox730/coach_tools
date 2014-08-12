@@ -57,10 +57,7 @@
     </div>
     <% @statistics.each do |statistic| %>
       <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading"><%= statistic[1][0].user.first_name %></div>
-
-        <!-- List group -->
+        <div class="panel-heading"><%= link_to statistic[1][0].user.first_name + " " + statistic[1][0].user.last_name, user_path(statistic[1][0].user) %></div>
         <ul class="list-group">
           <% statistic[1].each do |performance| %>
             <% if performance.workout.workout_type.name == "weight" %>
