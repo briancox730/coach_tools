@@ -128,7 +128,7 @@
     </div>
     <% @complete2.each do |statistic| %>
       <div class="panel panel-default">
-        <div class="panel-heading"><%= statistic[1][0].workout.wod.name %></div>
+        <div class="panel-heading"><%= link_to statistic[1][0].workout.wod.name, wod_path(statistic[0]) %></div>
         <ul class="list-group">
           <% statistic[1].each do |performance| %>
             <% if performance.workout.workout_type.name == "weight" %>
