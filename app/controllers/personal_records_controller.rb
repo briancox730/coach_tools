@@ -27,6 +27,6 @@ class PersonalRecordsController < ApplicationController
     params.require(:personal_record).permit(:back_squat, :front_squat, :overhead_squat, :clean,
                                             :snatch, :power_clean, :power_snatch, :hang_clean,
                                             :hang_snatch, :split_jerk, :push_jerk, :push_press,
-                                            :press, :dead_lift)
+                                            :press, :dead_lift, :bench_press, :clean_and_jerk)
   end
 end
