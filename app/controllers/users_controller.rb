@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def show
     @time = Time.now.strftime("%y%m%d")
-    @complete = Statistic.where(user_id: params[:id]).order(created_at: :desc).includes(:workout)
+    @complete = Statistic.where(user_id: params[:id]).order(created_at: :desc).includes(:workout).limit(15)
     @user = User.find(params[:id])
     if current_user.id == @user.id
       if !@user.program.wods.find_by(name: @time).nil?
