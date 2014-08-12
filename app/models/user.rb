@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_many :statistics
   belongs_to :program
-  has_one :personal_record
+  has_one :personal_record, dependent: :destroy
 
   after_create :create_pr
 
