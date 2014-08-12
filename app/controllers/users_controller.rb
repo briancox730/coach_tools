@@ -8,12 +8,13 @@ class UsersController < ApplicationController
     @time = Time.now.strftime("%y%m%d")
     @user = User.find(params[:id])
     @complete = @user.statistics.limit(15).includes(:workout).group_by { |statistic| statistic.workout.wod_id }
+    @completed = @user.statistics
     if current_user.id == @user.id
       if @user.program.wods.find_by(name: @time).nil?
         @to_complete = []
       else
         @available_workouts = @user.program.wods.find_by(name: @time).workouts
-        @to_complete = Statistic.build_to_complete(@available_workouts, @complete).reverse
+        @to_complete = Statistic.build_to_complete(@available_workouts, @completed).reverse
       end
     end
     @statistic = Statistic.new
