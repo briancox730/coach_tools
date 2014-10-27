@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('.added-row').remove();
     var value = $(this).find('.value').html();
     var movement = $(this).find('td:first').html();
-    var values = [.5, .55, .6, .65, .7, .75, .8, .85, .9, .95];
+    var values = [.5, .55, .6, .65, .7, .75, .8, .85, .9, .95, 1, 1.01, 1.03, 1.05];
     for (i=0; i<values.length; i++) {
       $(this).after('<tr class=\"added-row\"><td><strong>'+
         movement+'</strong> - '+values[i]+'%</td><td><strong>'+
@@ -15,7 +15,7 @@ $(document).ready(function() {
     e.preventDefault();
     $(this).nextAll('.pr-table').toggleClass('pr-table-hidden');
     var pr = $(this).nextAll('.pr-table').find('.pr').html();
-    var values = [100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50];
+    var values = [105, 103, 101, 100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50];
     for (i=0; i<values.length; i++) {
       $(this).nextAll('.pr-table').find('.tbody').append('<tr><td>'+
         values[i] + '</td><td>'+ ((values[i] /100) * pr).toFixed(2) + '</td></tr>')
