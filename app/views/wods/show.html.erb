@@ -7,47 +7,7 @@
   <div class="col-md-8">
     <% if user_signed_in? && current_user.admin == true %>
       <div class="well">
-        <%= simple_form_for([@wod, @workout], url: wod_workouts_path(@wod)) do |f| %>
-          <h4>Enter new workout for <%= @wod.name %></h4>
-          <%= f.error_notification %>
-
-          <div class="form-inputs">
-            <%= f.input :name,
-                        label: 'Part Name (a, b, c)',
-                        default: 'a',
-                        collection: %w{ a b c d e },
-                        input_html: { value: 'a', class: 'form-control'} %>
-                        <br>
-            <%= f.input :description,
-                        collection: @piece,
-                        prompt: "Choose part",
-                        input_html: { class: 'form-control'} %>
-                        <br>
-            <%= f.input :movement_id,
-                        label: 'Select Associated Movement',
-                        collection: @movements,
-                        prompt: "Movements...",
-                        input_html: { class: 'form-control'} %>
-                        <br>
-            <%= f.input :workout_id,
-                        label: 'Select Associated Workout',
-                        prompt: "Workouts...",
-                        collection: @previous_workouts,
-                        input_html: { class: 'form-control'} %>
-                        <br>
-            <%= f.input :workout_type_id,
-                        required: true,
-                        collection: WorkoutType.all,
-                        prompt: "Workout Type",
-                        input_html: { class: 'form-control'} %>
-                        <br>
-          </div>
-
-          <div class="form-actions">
-            <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
-          </div>
-          <br>
-        <% end %>
+        <%= render 'form' %>
       </div>
     <% end %>
     <div class="well">
@@ -76,11 +36,34 @@
       <h3>Associated Workout Pieces</h3>
       <% @wod.workouts.each do |workout| %>
         <div>
-          <%= workout.name %>. <%= workout.description %><br>
-          <%= workout.workout_type.name %><br>
+          <%= workout.name %>.
+          <%= workout.description %><br>
+          For: <%= workout.workout_type.name.capitalize %><br>
+          <%= link_to 'Edit', edit_wod_workout_path(id: workout.id, wod_id: @wod.id), remote: true, id: 'edit_workout' %>
         </div>
         <br>
       <% end %>
+    </div>
   </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel"><%= @wod.name %><span id='workoutName'></span></h4>
+      </div>
+      <div class="modal-body">
+        <span id='editName'></span>
+        <span id='editDescription'></span>
+        <span id='editType'></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
   </div>
 </div>

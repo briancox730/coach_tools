@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :wods, only: [:show, :new, :create] do
-    resources :workouts, only: [:create]
+    resources :workouts
   end
 
   resources :users, only: [:index, :show] do

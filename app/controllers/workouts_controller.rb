@@ -12,6 +12,18 @@ class WorkoutsController < ApplicationController
     end
   end
 
+  def edit
+    @workout = Workout.find(params[:id])
+
+    respond_to do |format|
+      format.json { render json: @workout }
+    end
+  end
+
+  def update
+
+  end
+
   private
 
   def workout_params

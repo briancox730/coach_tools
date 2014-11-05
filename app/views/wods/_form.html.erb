@@ -1,0 +1,41 @@
+<%= simple_form_for([@wod, @workout], url: wod_workouts_path(@wod)) do |f| %>
+  <h4>Enter new workout for <%= @wod.name %></h4>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name,
+                label: 'Part Name (a, b, c)',
+                default: 'a',
+                collection: %w{ a b c d e },
+                input_html: { value: 'a', class: 'form-control'} %>
+                <br>
+    <%= f.input :description,
+                collection: @piece,
+                prompt: "Choose part",
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :movement_id,
+                label: 'Select Associated Movement',
+                collection: @movements,
+                prompt: "Movements...",
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :workout_id,
+                label: 'Select Associated Workout',
+                prompt: "Workouts...",
+                collection: @previous_workouts,
+                input_html: { class: 'form-control'} %>
+                <br>
+    <%= f.input :workout_type_id,
+                required: true,
+                collection: WorkoutType.all,
+                prompt: "Workout Type",
+                input_html: { class: 'form-control'} %>
+                <br>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
+  </div>
+  <br>
+<% end %>

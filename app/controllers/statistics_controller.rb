@@ -1,4 +1,12 @@
 class StatisticsController < ApplicationController
+  def index
+    @statistic = Statistic.where(user_id: params[:id])
+  end
+
+  def show
+    @statistic = Statistic.find(params[:id])
+  end
+
   def create
     @statistic = Statistic.new(statistic_params)
     @statistic[:user_id] = params[:user_id]
