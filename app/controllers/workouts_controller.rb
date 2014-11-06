@@ -12,16 +12,16 @@ class WorkoutsController < ApplicationController
     end
   end
 
-  def edit
+  def update
     @workout = Workout.find(params[:id])
 
     respond_to do |format|
-      format.json { render json: @workout }
+      if @workout.update_attributes(workout_params)
+        format.json { respond_with_bip(@workout) }
+      else
+        format.json { respond_with_bip(@workout) }
+      end
     end
-  end
-
-  def update
-
   end
 
   private

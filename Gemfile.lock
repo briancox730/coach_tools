@@ -30,6 +30,9 @@ GEM
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
+    best_in_place (3.0.0)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
     builder (3.2.2)
     capybara (2.3.0)
       mime-types (>= 1.16)
@@ -194,6 +197,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  best_in_place
   capybara
   coffee-rails (~> 4.0.0)
   devise

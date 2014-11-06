@@ -17,3 +17,5 @@
 //= require bootstrap.min
 //= require custom
 //= require Chart.min
+//= require best_in_place
+

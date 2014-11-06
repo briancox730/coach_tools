@@ -9,6 +9,8 @@ class WodsController < ApplicationController
     @statistics = @wod.statistics.group_by(&:user_id)
     @program = Wod.find(params[:id]).program
     @movements = Movement.all
+    @edit_movements = {}
+    @movements.each { |m| @edit_movements[m.id] = m.name }
     @previous_workouts = Wod.associated_workouts(@wod)
   end
 

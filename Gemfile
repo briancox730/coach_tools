@@ -28,6 +28,7 @@ gem 'unicorn'
 gem 'simple_form'
 gem 'jquery-turbolinks'
 gem 'nokogiri'
+gem 'best_in_place'
 gem 'rails_12factor', group: :production
 
 # Use ActiveModel has_secure_password
@@ -41,13 +42,13 @@ gem 'rails_12factor', group: :production
 gem 'devise'
 
 group :development, :test do
-    gem 'pry-rails'
-    gem 'rspec-rails'
-    gem 'capybara'
-    gem 'launchy'
-    gem 'factory_girl_rails'
-    gem 'shoulda-matchers'
-    gem 'valid_attribute'
-    gem 'shoulda'
-    gem 'quiet_assets'
-  end
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+  gem 'valid_attribute'
+  gem 'shoulda'
+  gem 'quiet_assets'
+end
