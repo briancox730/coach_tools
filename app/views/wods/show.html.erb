@@ -35,12 +35,18 @@
     <div class="well">
       <h3>Associated Workout Pieces <span class="small">click to edit</span></h3>
       <% @wod.workouts.each do |workout| %>
-        <div>
-          Name: <%= best_in_place_if current_user.admin == true, workout, :name, url: wod_workout_path(wod_id: @wod), type: :select, collection: %w{ a b c d e } %><br>
+        <div class="associated-workout">
+          Part: <%= best_in_place_if current_user.admin == true, workout, :name, url: wod_workout_path(wod_id: @wod, id: workout.id), as: :select, collection: %w{ a b c d e } %>
+
+          <%= link_to 'Remove', wod_workout_path(wod_id: @wod, id: workout.id), method: :delete, class: 'right' %><br>
+
           Description: <%= workout.description %><br>
 
-          Associated Movement: <%= best_in_place_if current_user.admin == true, workout, :movement_id, url: wod_workout_path(wod_id: @wod), type: :select, collection: @edit_movements %><br>
+          Associated Movement: <%= best_in_place_if current_user.admin == true, workout, :movement_id, url: wod_workout_path(wod_id: @wod, id: workout.id), as: :select, collection: @edit_movements, place_holder: 'No Movement Selected' %><br>
 
+          Associated Workout: <%= best_in_place_if current_user.admin == true, workout, :workout_id, url: wod_workout_path(wod_id: @wod, id: workout.id), as: :select, collection: @edit_workouts, place_holder: 'No Workout Selected' %><br>
+
+          Workout Type: <%= best_in_place_if current_user.admin == true, workout, :workout_type_id, url: wod_workout_path(wod_id: @wod.id, id: workout.id), as: :select, collection: @edit_types, place_holder: 'No Type Selected' %><br>
         </div>
         <br>
       <% end %>

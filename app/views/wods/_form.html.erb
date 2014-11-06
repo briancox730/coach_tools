@@ -28,7 +28,7 @@
                 <br>
     <%= f.input :workout_type_id,
                 required: true,
-                collection: WorkoutType.all,
+                collection: @workout_types,
                 prompt: "Workout Type",
                 input_html: { class: 'form-control'} %>
                 <br>

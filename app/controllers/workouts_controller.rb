@@ -24,6 +24,18 @@ class WorkoutsController < ApplicationController
     end
   end
 
+  def destroy
+    @workout = Workout.find(params[:id])
+
+    if @workout.delete
+      flash[:notice] = 'Part #{@workout.name} removed!'
+      redirect_to wod_path(id: @workout.wod_id)
+    else
+      flash[:notice] = 'Delete Failed!'
+      redirect_to wod_path(id: @workout.wod_id)
+    end
+  end
+
   private
 
   def workout_params
