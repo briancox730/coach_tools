@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-8">
-    <% @statistics.keys.each do |k| %>
+    <% @statistics.keys.sort.reverse.each do |k| %>
       <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading"><%= k.name %></div>
