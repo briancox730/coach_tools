@@ -1,6 +1,6 @@
 class StatisticsController < ApplicationController
   def index
-    @statistics = Statistic.where(user_id: params[:user_id]).includes([:workout, workout: :wod]).group_by{ |s| s.workout.wod }
+    @statistics = Statistic.where(user_id: params[:user_id]).includes(workout: [:wod]).group_by{ |s| s.workout.wod }
   end
 
   def update
