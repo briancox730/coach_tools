@@ -25,26 +25,12 @@
       <div class="page-header">
         <h1><small>Statistics You Missed</small></h1>
       </div>
-      <% @to_complete.each do |w| %>
+      <% @to_complete.reverse.each do |w| %>
         <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: w)) do |f| %>
-          <h2><%= w.wod.name + w.name %></h2>
+          <h3><%= w.wod.name + w.name %></h3>
           <%= f.error_notification %>
           <p><%= w.description %></p>
           <p>Last Related Performance: <%= if !Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).nil? then Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).performance end%></p>
-          <% if !w.movement.nil? %>
-            <button class="btn btn-warning display-movement-percentage">Show <%= w.movement.name %> Percentages</button>
-            <br><br>
-            <table class="table table-hover pr-table pr-table-hidden">
-              <thead>
-                <tr>
-                  <th><%= w.movement.name %> Percentages</th>
-                  <th class="pr"><%= @user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] %></th>
-                </tr>
-              </thead>
-              <tbody class="tbody">
-              </tbody>
-            </table>
-          <% end %>
 
           <div class="form-inputs">
             <% if w.workout_type.name == "complete" %>
