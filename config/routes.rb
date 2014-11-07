@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show] do
     resources :personal_records, only: [:edit, :update]
     resources :programs, only: [:show]
-    resources :statistics, only: [:create]
+    resources :statistics, only: [:create, :index, :update]
   end
 end

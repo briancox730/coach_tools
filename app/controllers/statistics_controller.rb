@@ -1,10 +1,18 @@
 class StatisticsController < ApplicationController
   def index
-    @statistic = Statistic.where(user_id: params[:id])
+    @statistics = Statistic.where(user_id: params[:user_id]).includes([:workout, workout: :wod]).group_by{ |s| s.workout.wod }
   end
 
-  def show
+  def update
     @statistic = Statistic.find(params[:id])
+
+    respond_to do |format|
+      if @statistic.update_attributes(statistic_params)
+        format.json { respond_with_bip(@statistic) }
+      else
+        format.json { respond_with_bip(@statistic) }
+      end
+    end
   end
 
   def create

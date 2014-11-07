@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-8">
+    <% @statistics.keys.each do |k| %>
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><%= k.name %></div>
+
+        <!-- List group -->
+        <ul class="list-group">
+          <% @statistics[k].sort_by{|s| s.workout.name }.each do |s| %>
+            <li class="list-group-item">
+              Part: <%= s.workout.name %><br><br>
+              Description: <%= s.workout.description %><br><br>
+              Performance: <%= best_in_place_if s.user_id == current_user.id, s, :performance, as: :input, url: user_statistic_path(id: s.id) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>
