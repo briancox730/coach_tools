@@ -1,21 +1,92 @@
+<div class="page-header">
+  <h1>Statistics <small>Athlete: <%= @user.first_name + ' ' + @user.last_name %></small></h1>
+</div>
 <div class="row">
   <div class="col-md-8">
     <% @statistics.keys.sort.reverse.each do |k| %>
       <div class="panel panel-default">
-        <!-- Default panel contents -->
         <div class="panel-heading"><%= k.name %></div>
 
-        <!-- List group -->
         <ul class="list-group">
           <% @statistics[k].sort_by{|s| s.workout.name }.each do |s| %>
             <li class="list-group-item">
               Part: <%= s.workout.name %><br><br>
               Description: <%= s.workout.description %><br><br>
-              Performance: <%= best_in_place_if s.user_id == current_user.id, s, :performance, as: :input, url: user_statistic_path(id: s.id) %>
+              Performance: <%= best_in_place_if s.user_id == current_user.id, s, :performance, as: :input, url: user_statistic_path(id: s.id) %>  (click to edit)
             </li>
           <% end %>
         </ul>
       </div>
     <% end %>
   </div>
-</div>
+
+  <% if current_user.id == @user.id && @to_complete.size != 0 %>
+    <div class="col-md-4 well">
+      <div class="page-header">
+        <h1><small>Statistics You Missed</small></h1>
+      </div>
+      <% @to_complete.each do |w| %>
+        <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: w)) do |f| %>
+          <h2><%= w.wod.name + w.name %></h2>
+          <%= f.error_notification %>
+          <p><%= w.description %></p>
+          <p>Last Related Performance: <%= if !Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).nil? then Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).performance end%></p>
+          <% if !w.movement.nil? %>
+            <button class="btn btn-warning display-movement-percentage">Show <%= w.movement.name %> Percentages</button>
+            <br><br>
+            <table class="table table-hover pr-table pr-table-hidden">
+              <thead>
+                <tr>
+                  <th><%= w.movement.name %> Percentages</th>
+                  <th class="pr"><%= @user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] %></th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+              </tbody>
+            </table>
+          <% end %>
+
+          <div class="form-inputs">
+            <% if w.workout_type.name == "complete" %>
+              <%= f.input :performance,
+                          label: false,
+                          wrapper_html: { class: 'checkbox' },
+                          input_html: { type: 'checkbox' } ,
+                          inline_label: 'Complete?',
+                          as: :boolean %>
+                          <br>
+            <% elsif w.workout_type.name == "weight" %>
+              <%= f.input :performance,
+                          label: false,
+                          placeholder: 'Best Weight',
+                          input_html: { class: 'form-control'} %>
+                          <br>
+            <% elsif w.workout_type.name == "time" %>
+              <%= f.input :performance,
+                          label: false,
+                          as: :string,
+                          placeholder: 'Time in minutes and seconds',
+                          input_html: { class: 'form-control'} %>
+                          <br>
+            <% else %>
+              <%= f.input :performance,
+                          label: 'Reps',
+                          input_html: { class: 'form-control'} %>
+                          <br>
+            <% end %>
+            <%= f.input :comment,
+                        label: false,
+                        placeholder: 'Comments',
+                        input_html: { class: 'form-control'} %>
+                        <br>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, "Save", class: "btn btn-lg btn-primary btn-block" %>
+          </div>
+          <br>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

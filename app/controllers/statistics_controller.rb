@@ -1,6 +1,15 @@
 class StatisticsController < ApplicationController
   def index
-    @statistics = Statistic.where(user_id: params[:user_id]).includes(workout: :wod).group_by{|s| s.workout.wod }
+    @user = User.find(params[:user_id])
+    @completed = @user.statistics.includes(workout: :wod)
+    @statistics = @completed.group_by{|s| s.workout.wod }
+    @statistic = Statistic.new
+    if current_user.id == @user.id
+      @available_workouts = []
+      @user.program.wods.includes(:workouts).each {|w| @available_workouts << w.workouts}
+      @available_workouts = @available_workouts.flatten!
+      @to_complete = Statistic.build_to_complete(@available_workouts, @completed).reverse
+    end
   end
 
   def update
