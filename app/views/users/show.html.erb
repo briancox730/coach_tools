@@ -126,26 +126,6 @@
         </div>
       </div>
     </div>
-    <% @complete.each do |statistic| %>
-      <div class="panel panel-default">
-        <div class="panel-heading"><%= link_to statistic[1][0].workout.wod.name, wod_path(statistic[0]) %></div>
-        <ul class="list-group">
-          <% statistic[1].each do |performance| %>
-            <% if performance.workout.workout_type.name == "weight" %>
-              <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;<%= performance.performance %>lbs</li>
-            <% elsif performance.workout.workout_type.name == "complete" %>
-              <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;Complete</li>
-            <% elsif performance.workout.workout_type.name == "time" %>
-              <% if performance.performance >= 3599 %>
-                <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;<%= Time.at(performance.performance).gmtime.strftime('%R:%S') + " hours" %></li>
-              <% else %>
-                <li class="list-group-item"><%= performance.workout.name %>.&nbsp;&nbsp;<%= Time.at(performance.performance).gmtime.strftime('%M:%S') + " minutes" %></li>
-              <% end %>
-            <% end %>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
   </div>
 </div>
 <script type='text/javascript'>

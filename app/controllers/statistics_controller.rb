@@ -3,8 +3,8 @@ class StatisticsController < ApplicationController
     @user = User.find(params[:user_id])
     @completed = @user.statistics.includes(workout: :wod)
     @statistics = @completed.group_by{|s| s.workout.wod }
-    @statistic = Statistic.new
     if current_user.id == @user.id
+      @statistic = Statistic.new
       @available_workouts = []
       @user.program.wods.includes(:workouts).each {|w| @available_workouts << w.workouts}
       @available_workouts = @available_workouts.flatten!
