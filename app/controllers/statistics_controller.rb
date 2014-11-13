@@ -6,7 +6,7 @@ class StatisticsController < ApplicationController
     if current_user.id == @user.id
       @statistic = Statistic.new
       @available_workouts = []
-      @user.program.wods.includes(:workouts).last(7).each {|w| @available_workouts << w.workouts}
+      @user.program.wods.includes(:workouts).last(10).each {|w| @available_workouts << w.workouts}
       @available_workouts = @available_workouts.flatten!
       @to_complete = Statistic.build_to_complete(@available_workouts, @completed).reverse
     end
