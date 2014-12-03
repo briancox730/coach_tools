@@ -42,7 +42,7 @@
                 </tr>
               </thead>
               <tbody class="tbody">
-                <% w.description.scan(/\$?([0-9,]+)[.%]?/).flatten.each do |p| %>
+                <% w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.each do |p| %>
                   <tr>
                     <td><%= p + '%' %></td>
                     <td><%= (@user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] * (p.to_f/100)).round(1) %></td>
