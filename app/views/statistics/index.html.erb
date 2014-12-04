@@ -30,7 +30,7 @@
           <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: w)) do |f| %>
             <h3><%= w.wod.name + w.name %></h3>
             <%= f.error_notification %>
-            <p><%= w.description %></p>
+            <p><%= w.description.gsub("\n", '<br>').html_safe %></p>
             <p>Last Related Performance: <%= if !Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).nil? then Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).performance end%></p>
 
             <% if w.movement.present? %>

@@ -16,6 +16,7 @@ class UsersController < ApplicationController
         @to_complete = Statistic.build_to_complete(@available_workouts, @completed).reverse
       end
     end
+
     @statistic = Statistic.new
     if @user.personal_record.snatch.present? && @user.personal_record.clean_and_jerk.present?
       @oly_data = Statistic.build_oly_data(@user.id)
