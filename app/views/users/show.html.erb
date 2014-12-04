@@ -9,7 +9,7 @@
           <p><%= w.description.gsub("\n", '<br>').html_safe %></p>
           <p>Last Related Performance: <%= if !Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).nil? then Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).performance end%></p>
 
-          <% if w.movement.present? %>
+          <% if w.movement.present? && w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.size > 0 %>
             <table class="table table-hover pr-table">
               <thead>
                 <tr>
