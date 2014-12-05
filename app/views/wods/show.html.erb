@@ -40,7 +40,7 @@
   <div class="col-md-4">
     <div class="well">
       <h3>Associated Workout Pieces <span class="small">click to edit</span></h3>
-      <% @wod.workouts.sort{|w| w.name}.each do |workout| %>
+      <% @wod.workouts.sort_by{|w| w.name}.each do |workout| %>
         <div class="associated-workout">
           Part: <%= best_in_place_if current_user.admin == true, workout, :name, url: wod_workout_path(wod_id: @wod, id: workout.id), as: :select, collection: %w{ a b c d e } %>
 

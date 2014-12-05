@@ -23,6 +23,7 @@ class WodsController < ApplicationController
     @workout_types = WorkoutType.all
     @edit_types = {}
     @workout_types.each { |m| @edit_types[m.id] = m.name}
+    binding.pry
   end
 
   def new
