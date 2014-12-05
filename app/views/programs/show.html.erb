@@ -12,11 +12,9 @@
         </div>
         <div class="panel-body">
           <% if @program.name == 'Catalyst Athletics' %>
-            <ul>
-              <% JSON.parse(w.description).each do |part| %>
-                <li><%= part %></li>
-              <% end %>
-            </ul>
+            <% JSON.parse(w.description).each do |part| %>
+              <%= part %><br>
+            <% end %>
           <% else %>
             <%= w.description %>
           <% end %>
