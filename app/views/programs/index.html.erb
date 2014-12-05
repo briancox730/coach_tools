@@ -1,1 +1,28 @@
-program index
+<div class="row">
+  <div class="page-header col-md-12">
+    <h1>Programs</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-9">
+    <% @programs.each do |p| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= link_to p.name, user_program_path(user_id: current_user.id, id: p.id) %></h3>
+        </div>
+        <div class="panel-body">
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-3">
+    <div class="page-header inverse">
+      <h4>Athletes</h4>
+    </div>
+    <ul class="list-group">
+      <% @users.each do |u| %>
+        <li class="list-group-item"><%= link_to u.first_name + " " + u.last_name, user_path(u) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

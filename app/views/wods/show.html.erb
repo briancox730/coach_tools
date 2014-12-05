@@ -11,8 +11,16 @@
       </div>
     <% end %>
     <div class="well">
-      <% @wod.description.split("\n").each do |l| %>
-        <div><%= l %><br></div>
+      <% if @wod.program.name == 'Catalyst Athletics' %>
+        <ul>
+          <% JSON.parse(@wod.description).each do |part| %>
+            <li><%= part %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <% @wod.description.split("\n").each do |l| %>
+          <div><%= l %><br></div>
+        <% end %>
       <% end %>
     </div>
     <% @statistics.each do |statistic| %>

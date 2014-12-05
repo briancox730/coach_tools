@@ -11,7 +11,15 @@
           <h3 class="panel-title"><%= link_to w.name, wod_path(w) %></h3>
         </div>
         <div class="panel-body">
-          <%= w.description %>
+          <% if @program.name == 'Catalyst Athletics' %>
+            <ul>
+              <% JSON.parse(w.description).each do |part| %>
+                <li><%= part %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            <%= w.description %>
+          <% end %>
         </div>
       </div>
     <% end %>

@@ -10,8 +10,8 @@ class Wod < ActiveRecord::Base
   def self.associated_workouts(wod)
     results = []
 
-    wod.program.workouts.each do |w|
-      name = w.wod.name.to_s + w.name.to_s
+    wod.program.workouts.limit(25).each do |w|
+      name = w.wod.name.to_s + w.name.to_s + ' ' + Date.strptime(w.wod.name, "%y%m%d").strftime('%A')
 
       if !w.movement.nil?
         name += " " + w.movement.name
