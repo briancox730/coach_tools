@@ -9,8 +9,10 @@ task get_last_wod: :environment do
     new_wod = wod.css('.entry')[0].text.to_s
     Wod.create(name: name, description: new_wod, program_id: program.id)
   end
+end
 
-  # catalyst athletics
+task get_last_wod_catalyst: :environment do
+  require 'open-uri'
   catalyst = Program.find_by(name: 'Catalyst Athletics')
   name_tomorrow = (DateTime.now + 1).strftime("%y%m%d")
   if Wod.find_by(name: name_tomorrow, program_id: catalyst.id).nil?
@@ -18,5 +20,5 @@ task get_last_wod: :environment do
     json = Nokogiri::HTML(open("http://www.catalystathletics.com/olympic-weightlifting-workouts/tomorrow.php")).xpath('//li').each {|w| pieces << w.text}
     Wod.create(name: name_tomorrow, description: pieces.to_json, program_id: catalyst.id)
   end
+  binding.pry
 end
-
