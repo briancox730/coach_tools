@@ -20,5 +20,4 @@ task get_last_wod_catalyst: :environment do
     json = Nokogiri::HTML(open("http://www.catalystathletics.com/olympic-weightlifting-workouts/tomorrow.php")).xpath('//li').each {|w| pieces << w.text}
     Wod.create(name: name_tomorrow, description: pieces.to_json, program_id: catalyst.id)
   end
-  binding.pry
 end
