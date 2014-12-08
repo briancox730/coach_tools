@@ -1,8 +1,3 @@
-# back_squat: nil, front_squat: nil, overhead_squat: nil, clean: nil,
-# snatch: nil, power_clean: nil, power_snatch: nil, hang_clean: nil,
-# hang_snatch: nil, split_jerk: nil, push_jerk: nil,
-# push_press: nil, press: nil, dead_lift: nil
-
 class PersonalRecordsController < ApplicationController
   before_action :authenticate_user!
 
