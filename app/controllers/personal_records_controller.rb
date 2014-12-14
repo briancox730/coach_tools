@@ -6,7 +6,6 @@ class PersonalRecordsController < ApplicationController
   end
 
   def update
-    binding.pry
     @pr = PersonalRecord.find(params[:id])
     if @pr.update(personal_record_params)
       flash[:notice] = "Your changes were succesfully submitted."
