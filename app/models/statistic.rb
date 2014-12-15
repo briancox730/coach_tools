@@ -15,7 +15,7 @@ class Statistic < ActiveRecord::Base
     avg_snatch = @program.average(:snatch).to_i
     avg_cnj = @program.average(:clean_and_jerk).to_i
     data = {
-    labels: ["Snatch", "Clean and Jerk", "Total"],
+    labels: ["Snatch", "C & J", "Total"],
     datasets: [
         {
             label: "User",
@@ -126,7 +126,7 @@ class Statistic < ActiveRecord::Base
     avg_cnj = @program.average(:clean_and_jerk).to_f  / @program.average(:body_weight).to_f
     avg_total = (@program.average(:snatch).to_f + @program.average(:clean_and_jerk).to_f) / @program.average(:body_weight).to_f
     data = {
-    labels: ["Snatch", "Clean and Jerk", "Total"],
+    labels: ["Snatch", "C & J", "Total"],
     datasets: [
         {
             label: "User",
