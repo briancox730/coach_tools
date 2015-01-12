@@ -24,7 +24,19 @@ task get_last_wod_catalyst: :environment do
       file = open("http://www.catalystathletics.com/olympic-weightlifting-workouts/tomorrow.php")
       json = Nokogiri::HTML(file).xpath('//li').each {|w| pieces << w.text}
       if pieces != []
-        Wod.create(name: name_tomorrow, description: pieces.to_json, program_id: catalyst.id)
+        wod = Wod.create(name: name_tomorrow, description: pieces.to_json, program_id: catalyst.id)
+        type_id = WorkoutType.find_by(name: 'weight').id
+        name = %w{ a b c d e }
+        pieces.each_with_index do |p, i|
+          movement_name = /^(.*?)\ - /.match(p)[1]
+          movement = Movement.find_by(name: movement_name)
+          if movement.present?
+            movement_id = movement.id
+          else
+            movement_id = Movement.create(name: movement_name).id
+          end
+          Workout.create(description: p, workout_type_id: type_id, wod_id: wod.id, name: name[i], movement_id: movement_id)
+        end
       end
     rescue
     end
