@@ -10,37 +10,38 @@
           <% if w.movement_id.present? %>
             <% User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.present? ? @best_lift = User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.sort_by(&:performance).last.performance : @best_lift = 0 %>
             <p>Best Lift: <%= @best_lift %></p>
-          <% end %>
-          <% if @best_lift != 0 && w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.size > 0 %>
-            <table class="table table-hover pr-table">
-              <thead>
-                <tr>
-                  <th><%= w.movement.nil? ? 'Movement' : w.movement.name %> Percentages</th>
-                  <th class="pr"><%= @best_lift %></th>
-                </tr>
-              </thead>
-              <tbody class="tbody">
-                <% w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.each do |p| %>
-                  <tr>
-                    <td><%= p + '%' %></td>
-                    <td><%= if !@best_lift.nil? then (@best_lift * (p.to_f/100)).round(1) end %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
 
-            <button class="btn btn-warning display-movement-percentage">Show <%= w.movement.nil? ? 'Movement' : w.movement.name %> Percentages</button>
-            <br><br>
-            <table class="table table-hover pr-table pr-table-hidden">
-              <thead>
-                <tr>
-                  <th><%= w.movement.nil? ? 'Movement' : w.movement.name %> Percentages</th>
-                  <th class="pr"><%= @best_lift %></th>
-                </tr>
-              </thead>
-              <tbody class="tbody">
-              </tbody>
-            </table>
+            <% if @best_lift != 0 && w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.size > 0 %>
+              <table class="table table-hover pr-table">
+                <thead>
+                  <tr>
+                    <th><%= w.movement.name %> Percentages</th>
+                    <th class="pr"><%= @best_lift %></th>
+                  </tr>
+                </thead>
+                <tbody class="tbody">
+                  <% w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.each do |p| %>
+                    <tr>
+                      <td><%= p + '%' %></td>
+                      <td><%= (@best_lift * (p.to_f/100)).round(1) %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+
+              <button class="btn btn-warning display-movement-percentage">Show <%= w.movement.name %> Percentages</button>
+              <br><br>
+              <table class="table table-hover pr-table pr-table-hidden">
+                <thead>
+                  <tr>
+                    <th><%= w.movement.name %> Percentages</th>
+                    <th class="pr"><%= @best_lift %></th>
+                  </tr>
+                </thead>
+                <tbody class="tbody">
+                </tbody>
+              </table>
+            <% end %>
           <% end %>
 
 
