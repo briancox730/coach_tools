@@ -6,7 +6,8 @@
 <div class="row">
   <div class="col-md-8">
     <% if user_signed_in? && current_user.admin == true %>
-      <div class="well">
+      <div class="well" id='add_new_form'>
+        <button class="btn btn-default right">Form Toggle</button>
         <%= render 'form' %>
       </div>
     <% end %>

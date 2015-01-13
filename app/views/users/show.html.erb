@@ -7,21 +7,21 @@
           <h2><%= w.wod.name + w.name %></h2>
           <%= f.error_notification %>
           <p><%= w.description.gsub("\n", '<br>').html_safe %></p>
-          <p>Last Related Performance: <%= if !Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).nil? then Statistic.find_by(workout_id: w.workout_id, user_id: current_user.id).performance end%></p>
+          <p>Best Lift: <%= User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.present? ? User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.sort(&:performance).last.performance : 'none' %></p>
 
           <% if w.movement.present? && w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.size > 0 %>
             <table class="table table-hover pr-table">
               <thead>
                 <tr>
                   <th><%= w.movement.name %> Percentages</th>
-                  <th class="pr"><%= @user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] %></th>
+                  <th class="pr"><%= User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.present? ? User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.sort(&:performance).last.performance : 0 %></th>
                 </tr>
               </thead>
               <tbody class="tbody">
                 <% w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.each do |p| %>
                   <tr>
                     <td><%= p + '%' %></td>
-                    <td><%= (@user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] * (p.to_f/100)).round(1) %></td>
+                    <td><%= if !@user.personal_record[w.movement.name.downcase.gsub(/ /, "_")].nil? then (@user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] * (p.to_f/100)).round(1) end %></td>
                   </tr>
                 <% end %>
               </tbody>
