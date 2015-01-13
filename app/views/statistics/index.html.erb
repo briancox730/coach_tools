@@ -27,7 +27,7 @@
                 <% w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.each do |p| %>
                   <tr>
                     <td><%= p + '%' %></td>
-                    <td><%= (@user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] * (p.to_f/100)).round(1) %></td>
+                    <td><%= if !@user.personal_record[w.movement.name.downcase.gsub(/ /, "_")].nil? then (@user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] * (p.to_f/100)).round(1) else 0 end %></td>
                   </tr>
                 <% end %>
               </tbody>
