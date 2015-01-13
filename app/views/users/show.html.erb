@@ -34,7 +34,7 @@
             <table class="table table-hover pr-table pr-table-hidden">
               <thead>
                 <tr>
-                  <th><%= w.movement.name %> Percentages</th>
+                  <th><%= w.movement.nil? ? 'Movement' : w.movement.name %> Percentages</th>
                   <th class="pr"><%= @best_lift %></th>
                 </tr>
               </thead>
