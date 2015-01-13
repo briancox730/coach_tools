@@ -29,7 +29,7 @@
               </tbody>
             </table>
 
-            <button class="btn btn-warning display-movement-percentage">Show <%= w.movement.name %> Percentages</button>
+            <button class="btn btn-warning display-movement-percentage">Show <%= w.movement.nil? ? 'Movement' : w.movement.name %> Percentages</button>
             <br><br>
             <table class="table table-hover pr-table pr-table-hidden">
               <thead>
