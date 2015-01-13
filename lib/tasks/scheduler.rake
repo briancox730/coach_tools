@@ -7,8 +7,13 @@ task get_last_wod: :environment do
     begin
       url_date = Time.now.strftime("%B-%-d-%Y").downcase
       wod = Nokogiri::HTML(open("http://www.crossfitinvictus.com/wod/#{url_date}-competition/"))
-      new_wod = wod.css('.entry')[0].text.to_s
-      Wod.create(name: name, description: new_wod, program_id: program.id)
+      new_wod_entry = wod.css('.entry')[0].text.to_s
+      new_wod = Wod.create(name: name, description: new_wod_entry, program_id: program.id)
+      type_id = WorkoutType.find_by(name: 'weight').id
+      name = %w{ a b c d e }
+      new_wod.description.split(/[A-Z]\./)[1..-1].each_with_index do |p, i|
+        Workout.create(description: p, workout_type_id: type_id, wod_id: new_wod.id, name: name[i])
+      end
     rescue
     end
   end
