@@ -15,7 +15,7 @@
             <table class="table table-hover pr-table">
               <thead>
                 <tr>
-                  <th><%= w.movement.name %> Percentages</th>
+                  <th><%= w.movement.nil? ? 'Movement' : w.movement.name %> Percentages</th>
                   <th class="pr"><%= @best_lift %></th>
                 </tr>
               </thead>
@@ -28,9 +28,7 @@
                 <% end %>
               </tbody>
             </table>
-          <% end %>
 
-          <% if !w.movement.nil? && @best_lift != 0 %>
             <button class="btn btn-warning display-movement-percentage">Show <%= w.movement.name %> Percentages</button>
             <br><br>
             <table class="table table-hover pr-table pr-table-hidden">
@@ -44,6 +42,8 @@
               </tbody>
             </table>
           <% end %>
+
+
 
           <div class="form-inputs">
             <% if w.workout_type.name == "complete" %>
