@@ -8,35 +8,36 @@
           <%= f.error_notification %>
           <p><%= w.description.gsub("\n", '<br>').html_safe %></p>
           <% if w.movement_id.present? %>
-            <p>Best Lift: <%= User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.present? ? User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.sort_by(&:performance).last.performance : 'none' %></p>
+            <% User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.present? ? @best_lift = User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.sort_by(&:performance).last.performance : @best_lift = 0 %>
+            <p>Best Lift: <%= @best_lift %></p>
           <% end %>
-          <% if w.movement.present? && w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.size > 0 %>
+          <% if @best_lift != 0 && w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.size > 0 %>
             <table class="table table-hover pr-table">
               <thead>
                 <tr>
                   <th><%= w.movement.name %> Percentages</th>
-                  <th class="pr"><%= User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.present? ? User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.sort_by(&:performance).last.performance : 0 %></th>
+                  <th class="pr"><%= @best_lift %></th>
                 </tr>
               </thead>
               <tbody class="tbody">
                 <% w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.each do |p| %>
                   <tr>
                     <td><%= p + '%' %></td>
-                    <td><%= if !@user.personal_record[w.movement.name.downcase.gsub(/ /, "_")].nil? then (@user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] * (p.to_f/100)).round(1) end %></td>
+                    <td><%= if !@best_lift.nil? then (@best_lift * (p.to_f/100)).round(1) end %></td>
                   </tr>
                 <% end %>
               </tbody>
             </table>
           <% end %>
 
-          <% if !w.movement.nil? %>
+          <% if !w.movement.nil? && @best_lift != 0 %>
             <button class="btn btn-warning display-movement-percentage">Show <%= w.movement.name %> Percentages</button>
             <br><br>
             <table class="table table-hover pr-table pr-table-hidden">
               <thead>
                 <tr>
                   <th><%= w.movement.name %> Percentages</th>
-                  <th class="pr"><%= @user.personal_record[w.movement.name.downcase.gsub(/ /, "_")] %></th>
+                  <th class="pr"><%= @best_lift %></th>
                 </tr>
               </thead>
               <tbody class="tbody">
