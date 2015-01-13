@@ -7,8 +7,9 @@
           <h2><%= w.wod.name + w.name %></h2>
           <%= f.error_notification %>
           <p><%= w.description.gsub("\n", '<br>').html_safe %></p>
-          <p>Best Lift: <%= User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.present? ? User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.sort_by(&:performance).last.performance : 'none' %></p>
-
+          <% if w.movment_id.present? %>
+            <p>Best Lift: <%= User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.present? ? User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.sort_by(&:performance).last.performance : 'none' %></p>
+          <% end %>
           <% if w.movement.present? && w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.size > 0 %>
             <table class="table table-hover pr-table">
               <thead>
