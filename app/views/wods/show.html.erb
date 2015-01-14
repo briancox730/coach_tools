@@ -51,7 +51,7 @@
 
           Description: <%= workout.description %><br>
 
-          Associated Movement: <%= best_in_place_if current_user.admin == true, workout, :movement_id, url: wod_workout_path(wod_id: @wod, id: workout.id), as: :select, collection: @edit_movements, place_holder: 'No Movement Selected' %><br>
+          Associated Movement: <%= best_in_place_if current_user.admin == true, workout, :movement_id, url: wod_workout_path(wod_id: @wod, id: workout.id), as: :select, collection: @edit_movements, place_holder: 'No Movement Selected', nil: nil %><br>
 
           Associated Workout: <%= best_in_place_if current_user.admin == true, workout, :workout_id, url: wod_workout_path(wod_id: @wod, id: workout.id), as: :select, collection: @edit_workouts, place_holder: 'No Workout Selected' %><br>
 
