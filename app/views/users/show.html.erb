@@ -8,7 +8,7 @@
           <%= f.error_notification %>
           <p><%= w.description.gsub("\n", '<br>').html_safe %></p>
           <% if w.movement_id.present? %>
-            <% User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.present? ? @best_lift = User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.sort_by(&:performance).last.performance : @best_lift = 0 %>
+            <% User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.present? ? @best_lift = User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.map(&:performance).max : @best_lift = 0 %>
             <p>Best Lift: <%= @best_lift %></p>
 
             <% if @best_lift != 0 && w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.size > 0 %>
