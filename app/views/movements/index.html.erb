@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Movements <small>click to edit</small></h3>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Workout Count</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @movements.each do |m| %>
+            <tr>
+              <td><%= m.id %></td>
+              <td><%= Workout.where(movement_id: m.id).count %></td>
+              <td><%= best_in_place_if current_user.admin == true, m, :name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
