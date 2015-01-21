@@ -20,6 +20,22 @@
               <td><%= best_in_place_if current_user.admin == true, m, :name %></td>
             </tr>
           <% end %>
+
+          <%= simple_form_for @new_movement do |f| %>
+              <tr>
+                <td>New</td>
+                <td>
+                  <%= f.input :name,
+                              label: false,
+                              placeholder: 'Name',
+                              required: true,
+                              input_html: { class: 'form-control'} %>
+                </td>
+                <td>
+                  <%= f.submit 'Create Movement', class: 'btn btn-success' %>
+                </td>
+              </tr>
+            <% end %>
         </tbody>
       </table>
     </div>

@@ -1,6 +1,19 @@
 class MovementsController < ApplicationController
   def index
     @movements = Movement.all
+    @new_movement = Movement.new
+  end
+
+  def create
+    @movement = Movement.new(movement_params)
+
+    if @movement.save
+      flash[:notice] = "Movement saved!"
+      redirect_to movements_path
+    else
+      flash[:notice] = "Movement save failed!"
+      redirect_to movements_path
+    end
   end
 
   def update

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :workouts
   end
 
-  resources :movements, only: [:index, :update]
+  resources :movements, only: [:index, :update, :create]
 
   resources :users, only: [:index, :show] do
     resources :personal_records, only: [:edit, :update]
