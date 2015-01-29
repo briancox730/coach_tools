@@ -7,6 +7,97 @@
       <div class="page-header">
         <h1><small>Statistics You Missed</small></h1>
       </div>
+      <% @to_complete_group = @to_complete.group_by{|w| w.wod.name } %>
+      <% @to_complete_group.keys.each do |name| %>
+        <div class="well">
+          <% @to_complete_group[name].each do |w| %>
+            <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: w)) do |f| %>
+              <h3><%= w.wod.name + w.name %></h3>
+              <%= f.error_notification %>
+              <p><%= w.description.gsub("\n", '<br>').html_safe %></p>
+              <% if w.movement_id.present? %>
+                <% User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.present? ? @best_lift = User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.sort_by(&:performance).last.performance : @best_lift = 0 %>
+                <p>Best Lift: <%= @best_lift %></p>
+
+                <% if @best_lift != 0 && w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.size > 0 %>
+                  <table class="table table-hover pr-table">
+                    <thead>
+                      <tr>
+                        <th><%= w.movement.name %> Percentages</th>
+                        <th class="pr"><%= @best_lift %></th>
+                      </tr>
+                    </thead>
+                    <tbody class="tbody">
+                      <% w.description.scan(/(?<!\.|\d)(\d+)%+?/).flatten.each do |p| %>
+                        <tr>
+                          <td><%= p + '%' %></td>
+                          <td><%= (@best_lift * (p.to_f/100)).round(1) %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+
+                  <button class="btn btn-warning display-movement-percentage">Show <%= w.movement.name %> Percentages</button>
+                  <br><br>
+                  <table class="table table-hover pr-table pr-table-hidden">
+                    <thead>
+                      <tr>
+                        <th><%= w.movement.name %> Percentages</th>
+                        <th class="pr"><%= @best_lift %></th>
+                      </tr>
+                    </thead>
+                    <tbody class="tbody">
+                    </tbody>
+                  </table>
+                <% end %>
+              <% end %>
+
+              <div class="form-inputs">
+                <% if w.workout_type.name == "complete" %>
+                  <%= f.input :performance,
+                              label: false,
+                              wrapper_html: { class: 'checkbox' },
+                              input_html: { type: 'checkbox' } ,
+                              inline_label: 'Complete?',
+                              as: :boolean %>
+                              <br>
+                <% elsif w.workout_type.name == "weight" %>
+                  <%= f.input :performance,
+                              label: false,
+                              placeholder: 'Best Weight',
+                              input_html: { class: 'form-control'} %>
+                              <br>
+                <% elsif w.workout_type.name == "time" %>
+                  <%= f.input :performance,
+                              label: false,
+                              as: :string,
+                              placeholder: 'Time in minutes and seconds',
+                              input_html: { class: 'form-control'} %>
+                              <br>
+                <% else %>
+                  <%= f.input :performance,
+                              label: 'Reps',
+                              input_html: { class: 'form-control'} %>
+                              <br>
+                <% end %>
+                <%= f.input :comment,
+                            label: false,
+                            placeholder: 'Comments',
+                            input_html: { class: 'form-control'} %>
+                            <br>
+              </div>
+
+              <div class="form-actions">
+                <%= f.button :submit, "Save", class: "btn btn-lg btn-primary btn-block" %>
+              </div>
+              <br>
+            <% end %>
+
+          <% end %>
+        </div>
+      <% end %>
+
+
       <div class="well">
         <% @to_complete.reverse.each do |w| %>
           <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: w)) do |f| %>
