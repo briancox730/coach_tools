@@ -9,7 +9,7 @@
       </div>
       <% @to_complete.keys.sort.reverse.each do |name| %>
         <div class="well">
-          <% @to_complete[name].each do |w| %>
+          <% @to_complete[name].sort_by{|s| s.name}.each do |w| %>
             <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: w)) do |f| %>
               <h3><%= w.wod.name + w.name %></h3>
               <%= f.error_notification %>
@@ -79,11 +79,6 @@
                               input_html: { class: 'form-control'} %>
                               <br>
                 <% end %>
-                <%= f.input :comment,
-                            label: false,
-                            placeholder: 'Comments',
-                            input_html: { class: 'form-control'} %>
-                            <br>
               </div>
 
               <div class="form-actions">
