@@ -16,7 +16,7 @@
           <% @movements.each do |m| %>
             <tr>
               <td><%= m.id %></td>
-              <td><%= Workout.where(movement_id: m.id).count %></td>
+              <td><%= m.workouts.size %></td>
               <td><%= best_in_place_if current_user.admin == true, m, :name %></td>
             </tr>
           <% end %>

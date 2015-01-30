@@ -1,6 +1,6 @@
 class MovementsController < ApplicationController
   def index
-    @movements = Movement.all
+    @movements = Movement.all.includes(:workouts)
     @new_movement = Movement.new
   end
 
