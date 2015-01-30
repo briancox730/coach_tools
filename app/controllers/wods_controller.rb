@@ -2,7 +2,7 @@ require 'open-uri'
 
 class WodsController < ApplicationController
   def show
-    @wod = Wod.find(params[:id]).includes(:program)
+    @wod = Wod.find(params[:id])
     if @wod.program.name == 'Catalyst Athletics'
       @piece = JSON.parse(@wod.description)
     else
