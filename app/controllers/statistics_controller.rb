@@ -1,7 +1,7 @@
 class StatisticsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
-    @completed = @user.statistics.includes(workout: :wod)
+    @completed = @user.statistics.includes(workout: :wod).last(50)
     @statistics = @completed.group_by{|s| s.workout.wod }
     if current_user.present?
       if current_user.id == @user.id
@@ -10,6 +10,8 @@ class StatisticsController < ApplicationController
         @user.program.wods.includes(:workouts).last(10).each {|w| @available_workouts << w.workouts}
         @available_workouts = @available_workouts.flatten!
         @to_complete = Statistic.build_to_complete(@available_workouts, @completed).group_by{|w| w.wod.name }
+
+
       end
     end
   end
