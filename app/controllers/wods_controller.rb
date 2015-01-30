@@ -2,15 +2,12 @@ require 'open-uri'
 
 class WodsController < ApplicationController
   def show
-    @wod = Wod.find(params[:id])
-
+    @wod = Wod.find(params[:id]).includes(:program)
     if @wod.program.name == 'Catalyst Athletics'
       @piece = JSON.parse(@wod.description)
     else
       @piece = @wod.description.split(/[A-Z]\./)[1..-1]
     end
-
-    @workouts = Workout.where(wod_id: @wod.id)
     @workout = Workout.new
     @statistics = @wod.statistics.group_by(&:user_id)
     @program = Wod.find(params[:id]).program
