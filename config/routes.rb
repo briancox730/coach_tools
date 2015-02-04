@@ -17,4 +17,10 @@ Rails.application.routes.draw do
     resources :programs, only: [:index, :show]
     resources :statistics, only: [:create, :index, :update]
   end
+
+  scope module: :api, defaults: { format: 'json' } do
+    namespace :v1 do
+      resources :programs, only: [:index, :show]
+    end
+  end
 end
