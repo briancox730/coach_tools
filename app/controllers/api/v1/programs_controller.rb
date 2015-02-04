@@ -5,5 +5,6 @@ class Api::V1::ProgramsController < ApplicationController
 
   def show
     @program = Program.find(params[:id])
+    @wods = @program.wods
   end
 end

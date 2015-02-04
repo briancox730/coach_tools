@@ -1,1 +1,1 @@
-json.array! @programs, :name
+json.array! @programs, :id, :name

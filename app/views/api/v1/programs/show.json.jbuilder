@@ -1,1 +1,1 @@
-json.partial! 'program', program: @program
+json.partial! 'program', program: @program, wods: @wods
