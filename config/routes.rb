@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   scope module: :api, defaults: { format: 'json' } do
     namespace :v1 do
       resources :programs, only: [:index, :show]
+      resources :wods, only: [:show]
     end
   end
 end
