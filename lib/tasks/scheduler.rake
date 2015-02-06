@@ -47,15 +47,3 @@ task get_last_wod_catalyst: :environment do
     end
   end
 end
-
-
-task add_body_weight_ratio: :environment do
-  @statistics = Statistic.all
-  @statistics.each do |s|
-    if !s.user.nil?
-      weight = s.user.personal_record.body_weight
-      ratio = weight.zero? ? 0 : s.performance.to_f / weight.to_f
-      s.update_attributes(body_weight_ratio: ratio)
-    end
-  end
-end

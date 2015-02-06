@@ -32,7 +32,7 @@ class StatisticsController < ApplicationController
     @statistic.user_id = params[:user_id]
     @statistic.workout_id = params[:workout_id]
     @statistic.performance = Statistic.performance_converter(statistic_params[:performance])
-    @statistic.body_weight_ratio = @user.personal_record.body_weight.zero? ? 0 : @statistic.performance / @user.personal_record.body_weight
+    @statistic.body_weight_ratio = @user.personal_record.body_weight.zero? ? 0 : @statistic.performance.to_f / @user.personal_record.body_weight.to_f
 
     if @statistic.save
       flash[:notice] = "Your performance was succesfully submitted."
