@@ -31,12 +31,13 @@ class StatisticsController < ApplicationController
     @statistic[:user_id] = params[:user_id]
     @statistic[:workout_id] = params[:workout_id]
     @statistic[:performance] = Statistic.performance_converter(statistic_params[:performance])
+
     if @statistic.save
       flash[:notice] = "Your performance was succesfully submitted."
-      redirect_to user_path(current_user)
+      redirect_to request.referrer
     else
       flash[:notice] = "Your performance was not succesfully submitted."
-      redirect_to user_path(current_user)
+      redirect_to request.referrer
     end
   end
 
