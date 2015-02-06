@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717182550) do
+ActiveRecord::Schema.define(version: 20150206201217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,12 +50,13 @@ ActiveRecord::Schema.define(version: 20140717182550) do
   add_index "programs", ["name"], name: "index_programs_on_name", unique: true, using: :btree
 
   create_table "statistics", force: true do |t|
-    t.integer  "user_id",     null: false
-    t.integer  "workout_id",  null: false
-    t.integer  "performance", null: false
+    t.integer  "user_id",                         null: false
+    t.integer  "workout_id",                      null: false
+    t.integer  "performance",                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "comment"
+    t.float    "body_weight_ratio", default: 0.0
   end
 
   create_table "users", force: true do |t|

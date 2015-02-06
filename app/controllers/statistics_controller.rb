@@ -27,10 +27,12 @@ class StatisticsController < ApplicationController
   end
 
   def create
+    @user = User.find(params[:user_id])
     @statistic = Statistic.new(statistic_params)
-    @statistic[:user_id] = params[:user_id]
-    @statistic[:workout_id] = params[:workout_id]
-    @statistic[:performance] = Statistic.performance_converter(statistic_params[:performance])
+    @statistic.user_id = params[:user_id]
+    @statistic.workout_id = params[:workout_id]
+    @statistic.performance = Statistic.performance_converter(statistic_params[:performance])
+    @statistic.body_weight_ratio = @user.personal_record.body_weight.zero? 0 : @statistic.performance / @user.personal_record.body_weight
 
     if @statistic.save
       flash[:notice] = "Your performance was succesfully submitted."
