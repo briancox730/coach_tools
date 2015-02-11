@@ -15,7 +15,11 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show] do
     resources :personal_records, only: [:edit, :update]
     resources :programs, only: [:index, :show]
-    resources :statistics, only: [:create, :index, :update]
+    resources :statistics, only: [:create, :index, :update] do
+      collection do
+        get "movement_stats"
+      end
+    end
   end
 
   scope module: :api, defaults: { format: 'json' } do

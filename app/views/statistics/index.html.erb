@@ -1,6 +1,23 @@
 <div class="page-header">
   <h1>Statistics <small>Athlete: <%= @user.first_name + ' ' + @user.last_name %></small></h1>
 </div>
+
+<div class="row hidden-xs">
+  <div class="dark-well">
+    <div class="row">
+      <div class="col-md-12">
+        <canvas id="statistic_graph_target" height="70"></canvas>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-4 ">
+        <%= collection_select(:movement, :movement_id, @movements, :id, :name, {}, { id: 'movement-select', class: 'form-control' }) %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <% if current_user.present? && current_user.id == @user.id && @to_complete.size != 0 %>
     <div class="col-md-4">
@@ -113,3 +130,27 @@
   </div>
 </div>
 
+<script>
+  $(document).ready(function(){
+    build($('#movement-select').val());
+    $('#movement-select').change(function (){
+      built_chart.destroy();
+      build($('#movement-select').val());
+      chart.update();
+    });
+  });
+
+  function build(movement_id){
+    var url = "statistics/movement_stats?movement_id="+movement_id;
+    var target = "#statistic_graph_target"
+    Chart.defaults.global.responsive = true;
+    Chart.defaults.global.scaleLineColor = "rgba(255,255,255,.4)";
+    Chart.defaults.global.scaleFontColor = "rgba(255,255,255,.8)";
+    Chart.defaults.global.scaleIntegersOnly = true;
+    $.get( url, function( data ) {
+      var ctx = $(target).get(0).getContext("2d");
+      var chart = new Chart(ctx).Line(data, {scaleBeginAtZero : false, pointHitDetectionRadius : 40});
+      built_chart = chart
+    });
+  };
+</script>

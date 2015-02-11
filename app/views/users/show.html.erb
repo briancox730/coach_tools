@@ -204,7 +204,7 @@
 
   function buildRadar(data, target){
     var ctx = $(target).get(0).getContext("2d");
-    var chart = new Chart(ctx).Radar(data, {scaleBeginAtZero : false});
+    var chart = new Chart(ctx).Radar(data);
     return chart
   };
 
