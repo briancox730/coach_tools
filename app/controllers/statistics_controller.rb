@@ -49,7 +49,7 @@ class StatisticsController < ApplicationController
     @user_id = params[:user_id]
     @user = User.find(@user_id)
     @colors = [["rgba(83,187,244,0.2)", "rgba(83,187,244,1)"], ["rgba(177,235,0,0.2)", "rgba(177,235,0,1)"], ["rgba(255,133,203,0.2)", "rgba(255,133,203,1)"], ["rgba(255,67,46,0.2)", "rgba(255,67,46,1)"]]
-    @color = @colors[(1 + rand(@colors.size)).floor]
+    @color = @colors[(rand(@colors.size)).floor]
     @weight = WorkoutType.find_by(name: "weight")
     @statistics = Statistic.where(user_id: @user_id, workout_id: @movement.workouts.where(workout_type: @weight.id).last(10).map(&:id)).sort_by(&:created_at)
     @data = {}
