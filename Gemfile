@@ -20,6 +20,7 @@ gem 'rails_12factor', group: :production
 gem 'rollbar', '~> 1.2.11', group: :production
 gem 'devise'
 gem 'oj'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'pry-rails'
