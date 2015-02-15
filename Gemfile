@@ -21,6 +21,7 @@ gem 'rollbar', '~> 1.2.11', group: :production
 gem 'devise'
 gem 'oj'
 gem 'newrelic_rpm'
+gem 'unicode_utils', '~> 1.4.0'
 
 group :development, :test do
   gem 'pry-rails'
