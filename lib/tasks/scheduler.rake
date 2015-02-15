@@ -33,7 +33,7 @@ task get_last_wod_catalyst: :environment do
         type_id = WorkoutType.find_by(name: 'weight').id
         name = %w{ a b c d e }
         pieces.each_with_index do |p, i|
-          movement_name = /^(.*?)\ - /.match(p)[1]
+          movement_name = UnicodeUtils.compatibility_decomposition(/^(.*?)\ - /.match(p)[1])
           movement = Movement.find_by(name: movement_name)
           if movement.present?
             movement_id = movement.id
