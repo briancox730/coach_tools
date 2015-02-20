@@ -1,5 +1,5 @@
 class Wod < ActiveRecord::Base
-  has_many :workouts
+  has_many :workouts, dependent: :destroy
   belongs_to :program
   has_many :statistics, through: :workouts
 
