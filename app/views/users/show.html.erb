@@ -42,20 +42,10 @@
           <% end %>
         <% end %>
 
-          <%= simple_form_for(@statistic, url: user_statistics_path(current_user.id, workout_id: w)) do |f| %>
-          <%= f.error_notification %>
-          <div class="form-inputs">
-            <%= f.input :performance,
-                        label: false,
-                        placeholder: 'Best Weight',
-                        input_html: { class: 'form-control'} %>
-                        <br>
-          </div>
-
-          <div class="form-actions">
-            <%= f.button :submit, "Save", class: "btn btn-lg btn-primary btn-block" %>
-          </div>
-          <br>
+        <%= form_tag user_statistics_path(current_user.id, workout_id: w), :method => 'post', class: "form-inline" do %>
+          <%= text_field :statistic, :performance, { placeholder: 'Best Weight',
+              class: "input-medium search-query form-control" } %>
+          <%= submit_tag "Save", :name => nil, class: "btn btn-primary" %>
         <% end %>
       <% end %>
     <% end %>
