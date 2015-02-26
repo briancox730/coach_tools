@@ -44,9 +44,10 @@
 
         <%= form_tag user_statistics_path(current_user.id, workout_id: w), :method => 'post', class: "form-inline" do %>
           <%= text_field :statistic, :performance, { placeholder: 'Best Weight',
-              class: "input-medium search-query form-control" } %>
+              class: "input-medium search-query form-control", type: 'number', pattern: '[0-9]*' } %>
           <%= submit_tag "Save", :name => nil, class: "btn btn-primary" %>
         <% end %>
+        <br>
       <% end %>
     <% end %>
     <% if current_user.id == @user.id %>
