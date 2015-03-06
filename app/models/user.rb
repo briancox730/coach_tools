@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  acts_as_token_authenticatable
+
   has_many :statistics
   belongs_to :program
   has_one :personal_record, dependent: :destroy

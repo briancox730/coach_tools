@@ -22,6 +22,8 @@ gem 'devise'
 gem 'oj'
 gem 'newrelic_rpm'
 gem 'unicode_utils', '~> 1.4.0'
+gem 'simple_token_authentication', '~> 1.0'
+gem 'cancan'
 
 group :development, :test do
   gem 'pry-rails'
