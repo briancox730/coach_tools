@@ -23,25 +23,17 @@ class WodsController < ApplicationController
   end
 
   def new
-    @wod = Wod.new
   end
 
   def create
-    @wod = Wod.new(wod_params)
-    @wod[:program_id] = current_user.program_id
+    Wod.build_workout_catalyst(params[:wod][:url])
 
-    if @wod.save(wod_params)
-      flash[:notice] = "Your changes were succesfully submitted."
-      redirect_to @wod
-    else
-      flash.now[:notice] = "Your changes were not succesfully submitted."
-      render "new"
-    end
+    redirect_to new_wod_path
   end
 
   private
 
   def wod_params
-    params.require(:wod).permit(:name, :description)
+    params.require(:wod).permit(:name, :description, :url)
   end
 end

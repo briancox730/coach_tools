@@ -1,22 +1,22 @@
 <div class="row">
-  <%= simple_form_for(@wod, url: wods_path, html: {class: 'col-md-8'}) do |f| %>
-    <h2>Edit PRs</h2>
-    <%= f.error_notification %>
+  <div class="well col-md-8">
+    <% if current_user.program.name == "Catalyst Athletics" %>
+      <%= simple_form_for(:wod, url: wods_path) do |f| %>
+        <h2>New Wod From URL</h2>
+        <%= f.error_notification %>
 
-    <div class="form-inputs">
-      <%= f.input :name,
-                  label: 'Name as a date (YYMMDD)',
-                  placeholder: Time.now.strftime("%y%m%d"),
-                  input_html: { value: Time.now.strftime("%y%m%d"), class: 'form-control'} %>
-                  <br>
-      <%= f.input :description,
-                  input_html: { class: 'form-control'} %>
-                  <br>
-    </div>
+        <div class="form-inputs">
+          <%= f.input :url,
+                      label: 'URL',
+                      input_html: { class: 'form-control'} %>
+                      <br>
+        </div>
 
-    <div class="form-actions">
-      <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
-    </div>
-    <br>
-  <% end %>
+        <div class="form-actions">
+          <%= f.button :submit, "Save", class: "btn btn-lg btn-warning btn-block" %>
+        </div>
+        <br>
+      <% end %>
+    <% end %>
+  </div>
 </div>

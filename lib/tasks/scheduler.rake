@@ -24,26 +24,24 @@ task get_last_wod_catalyst: :environment do
   catalyst = Program.find_by(name: 'Catalyst Athletics')
   name_tomorrow = (DateTime.now + 1).strftime("%y%m%d")
   if Wod.find_by(name: name_tomorrow, program_id: catalyst.id).nil?
-    begin
-      pieces = []
-      file = open("http://www.catalystathletics.com/olympic-weightlifting-workouts/tomorrow.php")
-      json = Nokogiri::HTML(file).xpath('//li').each {|w| pieces << w.text}
-      if pieces != []
-        wod = Wod.create(name: name_tomorrow, description: pieces.to_json, program_id: catalyst.id)
-        type_id = WorkoutType.find_by(name: 'weight').id
-        name = %w{ a b c d e }
-        pieces.each_with_index do |p, i|
-          movement_name = UnicodeUtils.compatibility_decomposition(/^(.*?)\ - /.match(p)[1])
-          movement = Movement.find_by(name: movement_name)
-          if movement.present?
-            movement_id = movement.id
-          else
-            movement_id = Movement.create(name: movement_name).id
-          end
-          Workout.create(description: p, workout_type_id: type_id, wod_id: wod.id, name: name[i], movement_id: movement_id)
+    pieces = []
+    file = open("http://www.catalystathletics.com/olympic-weightlifting-workouts/tomorrow/")
+    json = Nokogiri::HTML(file).css('div.workouts_list_text').text.split("\r\n").each {|s| pieces << s.strip }
+    if pieces != []
+      pieces.delete_if { |p| /^(.*?)\ - /.match(p).nil? }
+      wod = Wod.create(name: name_tomorrow, description: pieces.to_json, program_id: catalyst.id)
+      type_id = WorkoutType.find_by(name: 'weight').id
+      name = %w{ a b c d e }
+      pieces.each_with_index do |p, i|
+        movement_name = UnicodeUtils.compatibility_decomposition(/^(.*?)\ - /.match(p)[1])
+        movement = Movement.find_by(name: movement_name)
+        if movement.present?
+          movement_id = movement.id
+        else
+          movement_id = Movement.create(name: movement_name).id
         end
+        Workout.create(description: p, workout_type_id: type_id, wod_id: wod.id, name: name[i], movement_id: movement_id)
       end
-    rescue
     end
   end
 end
