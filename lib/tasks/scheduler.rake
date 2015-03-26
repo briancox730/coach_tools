@@ -26,7 +26,7 @@ task get_last_wod_catalyst: :environment do
   if Wod.find_by(name: name_tomorrow, program_id: catalyst.id).nil?
     pieces = []
     file = open("http://www.catalystathletics.com/olympic-weightlifting-workouts/tomorrow/")
-    json = Nokogiri::HTML(file).css('div.workouts_list_text').text.split("\r\n").each {|s| pieces << s.strip }
+    json = Nokogiri::HTML(file).css('div.workouts_list_text li').each {|s| pieces << s.text }
     if pieces != []
       pieces.delete_if { |p| /^(.*?)\ - /.match(p).nil? }
       wod = Wod.create(name: name_tomorrow, description: pieces.to_json, program_id: catalyst.id)

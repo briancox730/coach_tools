@@ -29,7 +29,7 @@ class Wod < ActiveRecord::Base
     if Wod.find_by(name: name, program_id: catalyst.id).nil?
       pieces = []
       file = open(url)
-      json = Nokogiri::HTML(file).css('div.workouts_list_text').text.split("\r\n").each {|s| pieces << s.strip }
+      json = Nokogiri::HTML(file).css('div.workouts_list_text li').each {|s| pieces << s.text }
       if pieces != []
         pieces.delete_if { |p| /^(.*?)\ - /.match(p).nil? }
         wod = Wod.create(name: name, description: pieces.to_json, program_id: catalyst.id)
