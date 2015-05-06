@@ -49,7 +49,7 @@
 
           <%= link_to 'Remove', wod_workout_path(wod_id: @wod, id: workout.id), method: :delete, class: 'right' %><br>
 
-          Description: <%= workout.description %><br>
+          Description: <%= best_in_place_if current_user.admin == true, workout, :description, url: wod_workout_path(wod_id: @wod, id: workout.id), as: :textarea %><br>
 
           Associated Movement: <%= best_in_place_if current_user.admin == true, workout, :movement_id, url: wod_workout_path(wod_id: @wod, id: workout.id), as: :select, collection: @edit_movements, place_holder: 'No Movement Selected' %><br>
 
