@@ -4,7 +4,11 @@
       <% if current_user.id == @user.id && @to_complete.size != 0 %>
       <h3><%= @to_complete[0].wod.name if @to_complete.present? %></h3>
         <% @to_complete.each do |w| %>
-        <p><%= w.name + ". " + w.description.gsub("\n", '<br>').html_safe %></p>
+        <p>
+          <%= w.name %>
+          <br>
+          <%= w.description %>
+        </p>
         <% if w.movement_id.present? %>
           <% User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.present? ? @best_lift = User.find(@user).statistics.select{|s| s.workout.movement_id == w.movement_id }.map(&:performance).max : @best_lift = 0 %>
           <p>Best Lift: <%= @best_lift %></p>
