@@ -10,11 +10,17 @@ Rails.application.routes.draw do
     resources :workouts
   end
 
-  resources :movements, only: [:index, :update, :create]
+  resources :movements, only: [:index, :update, :create] do
+    collection do
+      get 'merge'
+      post 'merge_update'
+    end
+  end
+
+  resources :programs, only: [:index, :show]
 
   resources :users, only: [:index, :show] do
     resources :personal_records, only: [:edit, :update]
-    resources :programs, only: [:index, :show]
     resources :statistics, only: [:create, :index, :update] do
       collection do
         get "movement_stats"

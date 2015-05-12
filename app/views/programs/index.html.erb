@@ -8,7 +8,7 @@
     <% @programs.each do |p| %>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title"><%= link_to p.name, user_program_path(user_id: current_user.id, id: p.id) %></h3>
+          <h3 class="panel-title"><%= link_to p.name, program_path(p.id) %></h3>
         </div>
         <div class="panel-body">
         </div>

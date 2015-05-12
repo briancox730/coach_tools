@@ -28,7 +28,7 @@
       <div class="collapse navbar-collapse">
         <% if user_signed_in? %>
           <ul class="nav navbar-nav" >
-            <li><%= link_to 'Your Program', user_program_path(current_user.id, current_user.program_id) %></li>
+            <li><%= link_to 'Your Program', program_path(current_user.program_id) %></li>
             <li><%= link_to 'Profile', user_path(current_user) %></li>
             <li><%= link_to 'Statistics', user_statistics_path(current_user) %></li>
             <li><%= link_to 'Movements', movements_path %></li>

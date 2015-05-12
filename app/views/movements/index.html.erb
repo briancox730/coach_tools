@@ -10,6 +10,7 @@
             <th>Id</th>
             <th>Workout Count</th>
             <th>Name</th>
+            <th>Merge</th>
           </tr>
         </thead>
         <tbody>
@@ -18,12 +19,15 @@
               <td><%= m.id %></td>
               <td><%= m.workouts.size %></td>
               <td><%= best_in_place_if current_user.admin == true, m, :name %></td>
+              <td><%= link_to 'Merge Into', merge_movements_path(id: m.id), { class: 'btn btn-primary' } %>
+              <td></td>
             </tr>
           <% end %>
 
           <%= simple_form_for @new_movement do |f| %>
               <tr>
                 <td>New</td>
+                <td></td>
                 <td>
                   <%= f.input :name,
                               label: false,
